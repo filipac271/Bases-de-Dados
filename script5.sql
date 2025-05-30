@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS BelaRentaCar
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE BelaRentacar;
+USE BelaRentaCar;
 
 -- Tabela Filial
 CREATE TABLE IF NOT EXISTS Filial (
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Funcionario (
     Id INT NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     NIF VARCHAR(9) NOT NULL UNIQUE CHECK (LENGTH(NIF) = 9),
-    Salario DECIMAL(5,2) NOT NULL,
+    Salario DECIMAL(8,2) NOT NULL,
     Telefone VARCHAR(20) NOT NULL,
     Email VARCHAR(200) NULL,
     FilialId INT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Funcionario (
 CREATE TABLE IF NOT EXISTS Funcao (
     Id INT NOT NULL AUTO_INCREMENT,
     Designacao VARCHAR(75) NOT NULL,
-    SalarioBase DECIMAL(5,2) NOT NULL,
+    SalarioBase DECIMAL(8,2) NOT NULL,
     PRIMARY KEY(Id)
 );
 

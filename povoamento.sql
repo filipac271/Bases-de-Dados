@@ -1,3 +1,10 @@
+-- Inserir Filiais
+INSERT INTO Filial (Localizacao) VALUES
+('Portugal'),
+('Mónaco'),
+('Bélgica');
+
+
 INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VALUES
 ('Akio Toyoda', 'Rua Toyoda', 'Japao', '1234-234', 111111111, 'Toyota Group'),
 ('Oliver Blume', 'Rua Porsche', 'Alemanha', '5432-111', 222222222, 'Volkswagen Group'),
@@ -37,6 +44,13 @@ INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, PrecoDia, TipoConsumo, 
 ('Mercedes A-Class', 28000, 2022, 'Disponível', 70.00, 'Gasolina', 3),
 ('Nissan Leaf', 18000, 2021, 'Ocupado', 55.00, 'Elétrico', 1);
 
+-- Inserir Funcionários
+INSERT INTO Funcionario (Nome, NIF,Salario, Email, Telefone, FilialId) VALUES
+('Octavio Faísca', '111223333',3000.00, 'octfaisca@belarentacar.com', '960123456', 1),
+('Leonidas Lindt', '222334444',2000.00, 'lindt@belarentacar.com', '961234567', 2),
+('Afonso Senna', '333445555',2000.00, 'senna@belarentacar.com', '962345678', 3),
+('José Martins', '444556666',2000.00, 'jose.martins@belarentacar.com', '963456789', 1),
+('Eva Rocha', '555667777',2000.00, 'eva.rocha@belarentacar.com', '964567890', 2);
 
 
 INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId) VALUES
@@ -54,19 +68,7 @@ INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId
 
 
 
--- Inserir Filiais
-INSERT INTO Filial (Localizacao) VALUES
-('Portugal'),
-('Mónaco'),
-('Bélgica');
 
--- Inserir Funcionários
-INSERT INTO Funcionario (Nome, NIF, Email, Telefone, FilialId) VALUES
-('Octavio Faísca', '111223333', 'octfaisca@belarentacar.com', '960123456', 1),
-('Leonidas Lindt', '222334444', 'lindt@belarentacar.com', '961234567', 2),
-('Afonso Senna', '333445555', 'senna@belarentacar.com', '962345678', 3),
-('José Martins', '444556666', 'jose.martins@belarentacar.com', '963456789', 1),
-('Eva Rocha', '555667777', 'eva.rocha@belarentacar.com', '964567890', 2);
 
 -- Inserir Funções
 INSERT INTO Funcao (Designacao, SalarioBase) VALUES
