@@ -1,0 +1,122 @@
+group: Belos Carros
+
+Cliente = {
+	Id:number, Nome:string, Rua:string, Localidade: String, CodigoPostal: String, NIF:number, LocalTrabalho:string
+	1, 'Akio Toyoda', 'Rua Toyoda', 'Japao', '1234-234', 111111111, 'Toyota Group'
+	2, 'Oliver Blume', 'Rua Porsche', 'Alemanha', '5432-111', 222222222, 'Volkswagen Group'
+	3, 'Carlos Tavares', 'Rua Europa', 'Portugal', '1500-000', 333333333, 'Stellantis'
+	4, 'Jim Farley', 'Ford Street', 'Estados Unidos', '9021-420', 444444444, 'Ford Motor Company'
+	5, 'Luca de Meo', 'Via Milano', 'Itália', '2010-500', 555555555, 'Renault Group'
+	6, 'Toshihiro Mibe', 'Rua Honda', 'Japao', '1245-678', 666666666, 'Honda Motor Co.'
+	7, 'Makoto Uchida', 'Rua Yokohama', 'Japao', '1267-890', 777777777, 'Nissan Motor Co.'
+	8, 'Mary Barra', 'Detroit Ave', 'Estados Unidos', '4822-300', 888888888, 'General Motors'
+	9, 'Harald Krüger', 'München Straße', 'Alemanha', '8033-500', 999999999, 'BMW Group'
+	10, 'Zhou Xiaoqing', 'Rua Geely', 'China', '1000-888', 101010101, 'Geely Holding Group'
+}
+
+
+
+Emails = {
+	Cliente:number, Email:string
+	1, 'akio.toyoda@toyota.jp'
+	2, 'oliver.blume@vwgroup.de'
+	3, 'carlos.tavares@stellantis.com'
+	4, 'jim.farley@ford.com'
+	5, 'luca.demeo@renault.it'
+	6, 'toshihiro.mibe@honda.jp'
+	7, 'makoto.uchida@nissan.jp'
+	8, 'mary.barra@gm.com'
+	9, 'harald.kruger@bmw.de'
+	10, 'zhou.xiaoqing@geely.cn'
+}
+
+Telefones = {
+	Cliente:number, Telefone:string
+	1, '910234567'
+	2, '920345678'
+	3, '930456789'
+	4, '940567890'
+	5, '950678901'
+	6, '960789012'
+	7, '970890123'
+	8, '980901234'
+	9, '990012345'
+	10, '900123456'
+}
+
+
+
+Funcionario = {
+	Id:number, Nome:string, NIF:number, Email:string, Telefone:string, Filial:number
+	1, 'Orlando Belos', 111223333, 'orlandobls@beloscarros.com', '960123456', 1
+	2, 'Otavio Belos', 222334444, 'otaviobls@beloscarros.com', '961234567', 2
+	3, 'Osvaldo Belos', 333445555, 'osvaldobls@beloscarros.com', '962345678', 3
+	4, 'Diogo Martins', 444556666, 'diogo.martins@beloscarros.com', '963456789', 1
+	5, 'Eva Rocha', 555667777, 'eva.rocha@beloscarros.com', '964567890', 2
+}
+
+
+
+Funcao = {
+	Id:number, Designacao:string, SalarioBase:number
+	1, 'Gestor de Filial', 2000
+	2, 'Assistente de Atendimento', 1100
+	3, 'Técnico de Manutenção', 1300
+	4, 'Operador de Reservas', 1200
+	5, 'Gestor Comercial', 1800
+}
+
+
+FuncaoFuncionario = {
+	Funcionario:number, Funcao:number
+	1, 1   
+	2, 1   
+	3, 1   
+	4, 2 
+	5, 5   
+}
+
+
+Filial = {
+	Id:number, Localizacao:string
+	1, 'Portugal'
+	2, 'Mónaco'
+	3, 'Bélgica'
+}
+
+Automovel = {
+	Id:number, Marca:string, kilometragem:number, ano:number, Estado:string, PrecoDia:number, TipoConsumo:string, Filial:number
+	1, 'Toyota Corolla', 45000, 2020, 'Disponível', 45, 'Gasolina', 1
+	2, 'Volkswagen Golf', 30000, 2021, 'Ocupado', 50, 'Diesel', 2
+	3, 'Peugeot 208', 15000, 2022, 'Disponível', 40, 'Gasolina', 3
+	4, 'Renault Clio', 60000, 2019, 'Manutenção', 38, 'Gasolina', 1
+	5, 'Ford Focus', 50000, 2020, 'Disponível', 42, 'Diesel', 2
+	6, 'BMW Série 1', 25000, 2021, 'Ocupado', 65, 'Gasolina', 3
+	7, 'Fiat 500', 12000, 2023, 'Disponível', 35, 'Elétrico', 1
+	8, 'Audi A3', 40000, 2020, 'Disponível', 60, 'Diesel', 2
+	9, 'Mercedes A-Class', 28000, 2022, 'Disponível', 70, 'Gasolina', 3
+	10, 'Nissan Leaf', 18000, 2021, 'Ocupado', 55, 'Elétrico', 1
+	11, 'Honda Civic', 22000, 2022, 'Disponível', 48, 'Gasolina', 1
+	12, 'Hyundai Ioniq 5', 8000, 2023, 'Disponível', 75, 'Elétrico', 2
+	13, 'Opel Corsa', 35000, 2021, 'Manutenção', 37, 'Gasolina', 3
+	14, 'Tesla Model 3', 15000, 2022, 'Ocupado', 85, 'Elétrico', 2
+	15, 'Kia Ceed', 27000, 2020, 'Disponível', 43, 'Diesel', 1
+}
+
+
+
+Aluguer = {
+	Id:number, Preco:number, DataInicio:date, DataFim:date, filialRecolha:number, FilialDevolucao:number, multa:number, funcionario:number, cliente:number, automovel:number
+	1, 180, 2025-04-01, 2025-04-05, 1, 1, 0, 2, 1, 1
+	2, 100, 2025-03-15, 2025-03-17, 2, 2, 10, 1, 2, 2
+	3, 120, 2025-04-10, 2025-04-13, 3, 3, 0, 3, 3, 3
+	4, 76, 2025-02-05, 2025-02-07, 1, 2, 5, 5, 4, 4
+	5, 168, 2025-01-20, 2025-01-24, 2, 2, 0, 4, 5, 5
+	6, 195, 2025-03-01, 2025-03-04, 3, 3, 15, 2, 1, 6
+	7, 105, 2025-04-05, 2025-04-07, 1, 1, 0, 1, 2, 7
+	8, 240, 2025-03-22, 2025-03-26, 2, 1, 0, 5, 3, 8
+	9, 280, 2025-02-18, 2025-02-22, 3, 3, 20, 3, 4, 9
+	10, 110, 2025-04-01, 2025-04-03, 1, 1, 0, 4, 5, 10
+}
+
+
