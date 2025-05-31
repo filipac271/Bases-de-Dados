@@ -1,0 +1,76 @@
+{
+  "Filial": [
+    { "Localizacao": "Portugal" },
+    { "Localizacao": "Mónaco" },
+    { "Localizacao": "Bélgica" }
+  ],
+  "Cliente": [
+    { "Nome": "Akio Toyoda", "Rua": "Rua Toyoda", "Localidade": "Japao", "CodigoPostal": "1234-234", "NIF": "111111111", "LocalTrabalho": "Toyota Group" },
+    { "Nome": "Oliver Blume", "Rua": "Rua Porsche", "Localidade": "Alemanha", "CodigoPostal": "5432-111", "NIF": "222222222", "LocalTrabalho": "Volkswagen Group" },
+    { "Nome": "Carlos Tavares", "Rua": "Rua Europa", "Localidade": "Portugal", "CodigoPostal": "1500-000", "NIF": "333333333", "LocalTrabalho": "Stellantis" },
+    { "Nome": "Jim Farley", "Rua": "Ford Street", "Localidade": "Estados Unidos", "CodigoPostal": "9021-420", "NIF": "444444444", "LocalTrabalho": "Ford Motor Company" },
+    { "Nome": "Luca de Meo", "Rua": "Via Milano", "Localidade": "Itália", "CodigoPostal": "2010-500", "NIF": "555555555", "LocalTrabalho": "Renault Group" },
+    { "Nome": "Toshihiro Mibe", "Rua": "Rua Honda", "Localidade": "Japao", "CodigoPostal": "1245-678", "NIF": "666666666", "LocalTrabalho": "Honda Motor Co." },
+    { "Nome": "Makoto Uchida", "Rua": "Rua Yokohama", "Localidade": "Japao", "CodigoPostal": "1267-890", "NIF": "777777777", "LocalTrabalho": "Nissan Motor Co." },
+    { "Nome": "Mary Barra", "Rua": "Detroit Ave", "Localidade": "Estados Unidos", "CodigoPostal": "4822-300", "NIF": "888888888", "LocalTrabalho": "General Motors" },
+    { "Nome": "Harald Krüger", "Rua": "München Straße", "Localidade": "Alemanha", "CodigoPostal": "8033-500", "NIF": "999999999", "LocalTrabalho": "BMW Group" },
+    { "Nome": "Zhou Xiaoqing", "Rua": "Rua Geely", "Localidade": "China", "CodigoPostal": "1000-888", "NIF": "101010101", "LocalTrabalho": "Geely Holding Group" }
+  ],
+  "Cliente_Contacto": [
+    { "ClienteId": 1, "Telefone": "910234567", "Email": "akio.toyoda@toyota.jp" },
+    { "ClienteId": 2, "Telefone": "920345678", "Email": "oliver.blume@vwgroup.de" },
+    { "ClienteId": 3, "Telefone": "930456789", "Email": "carlos.tavares@stellantis.com" },
+    { "ClienteId": 4, "Telefone": "940567890", "Email": "jim.farley@ford.com" },
+    { "ClienteId": 5, "Telefone": "950678901", "Email": "luca.demeo@renault.it" },
+    { "ClienteId": 6, "Telefone": "960789012", "Email": "toshihiro.mibe@honda.jp" },
+    { "ClienteId": 7, "Telefone": "970890123", "Email": "makoto.uchida@nissan.jp" },
+    { "ClienteId": 8, "Telefone": "980901234", "Email": "mary.barra@gm.com" },
+    { "ClienteId": 9, "Telefone": "990012345", "Email": "harald.kruger@bmw.de" },
+    { "ClienteId": 10, "Telefone": "900123456", "Email": "zhou.xiaoqing@geely.cn" }
+  ],
+  "Automovel": [
+    { "Modelo": "Toyota Corolla", "Quilometragem": 45000, "Ano": 2020, "Estado": "Disponível", "Combustivel": "Gasolina", "PrecoDiario": 45.00, "FilialId": 1 },
+    { "Modelo": "Volkswagen Golf", "Quilometragem": 30000, "Ano": 2021, "Estado": "Ocupado", "Combustivel": "Diesel", "PrecoDiario": 50.00, "FilialId": 2 },
+    { "Modelo": "Peugeot 208", "Quilometragem": 15000, "Ano": 2022, "Estado": "Disponível", "Combustivel": "Gasolina", "PrecoDiario": 40.00, "FilialId": 3 },
+    { "Modelo": "Renault Clio", "Quilometragem": 60000, "Ano": 2019, "Estado": "Manutenção", "Combustivel": "Gasolina", "PrecoDiario": 38.00, "FilialId": 1 },
+    { "Modelo": "Ford Focus", "Quilometragem": 50000, "Ano": 2020, "Estado": "Disponível", "Combustivel": "Diesel", "PrecoDiario": 42.00, "FilialId": 2 },
+    { "Modelo": "BMW Série 1", "Quilometragem": 25000, "Ano": 2021, "Estado": "Ocupado", "Combustivel": "Gasolina", "PrecoDiario": 65.00, "FilialId": 3 },
+    { "Modelo": "Fiat 500", "Quilometragem": 12000, "Ano": 2023, "Estado": "Disponível", "Combustivel": "Elétrico", "PrecoDiario": 35.00, "FilialId": 1 },
+    { "Modelo": "Audi A3", "Quilometragem": 40000, "Ano": 2020, "Estado": "Disponível", "Combustivel": "Diesel", "PrecoDiario": 60.00, "FilialId": 2 },
+    { "Modelo": "Mercedes A-Class", "Quilometragem": 28000, "Ano": 2022, "Estado": "Disponível", "Combustivel": "Gasolina", "PrecoDiario": 70.00, "FilialId": 3 },
+    { "Modelo": "Nissan Leaf", "Quilometragem": 18000, "Ano": 2021, "Estado": "Ocupado", "Combustivel": "Elétrico", "PrecoDiario": 55.00, "FilialId": 1 }
+  ],
+  "Funcionario": [
+    { "Nome": "Octavio Faísca", "NIF": "111223333", "Salario": 3000.00, "Email": "octfaisca@belarentacar.com", "Telefone": "960123456", "FilialId": 1 },
+    { "Nome": "Leonidas Lindt", "NIF": "222334444", "Salario": 2000.00, "Email": "lindt@belarentacar.com", "Telefone": "961234567", "FilialId": 2 },
+    { "Nome": "Afonso Senna", "NIF": "333445555", "Salario": 2000.00, "Email": "senna@belarentacar.com", "Telefone": "962345678", "FilialId": 3 },
+    { "Nome": "José Martins", "NIF": "444556666", "Salario": 2000.00, "Email": "jose.martins@belarentacar.com", "Telefone": "963456789", "FilialId": 1 },
+    { "Nome": "Eva Rocha", "NIF": "555667777", "Salario": 2000.00, "Email": "eva.rocha@belarentacar.com", "Telefone": "964567890", "FilialId": 2 }
+  ],
+  "Aluguer": [
+    { "DataInicio": "2025-04-01 00:00:00", "DataFim": "2025-04-05 00:00:00", "Preco": 180.00, "Multa": 0.00, "FuncionarioId": 1, "ClienteId": 2, "AutomovelId": 1, "FilialOrigemId": 1, "FilialDestinoId": 1 },
+    { "DataInicio": "2025-03-15 00:00:00", "DataFim": "2025-03-17 00:00:00", "Preco": 100.00, "Multa": 10.00, "FuncionarioId": 2, "ClienteId": 1, "AutomovelId": 2, "FilialOrigemId": 2, "FilialDestinoId": 2 },
+    { "DataInicio": "2025-04-10 00:00:00", "DataFim": "2025-04-13 00:00:00", "Preco": 120.00, "Multa": 0.00, "FuncionarioId": 3, "ClienteId": 3, "AutomovelId": 3, "FilialOrigemId": 3, "FilialDestinoId": 3 },
+    { "DataInicio": "2025-02-05 00:00:00", "DataFim": "2025-02-07 00:00:00", "Preco": 76.00, "Multa": 5.00, "FuncionarioId": 4, "ClienteId": 5, "AutomovelId": 4, "FilialOrigemId": 1, "FilialDestinoId": 2 },
+    { "DataInicio": "2025-01-20 00:00:00", "DataFim": "2025-01-24 00:00:00", "Preco": 168.00, "Multa": 0.00, "FuncionarioId": 5, "ClienteId": 4, "AutomovelId": 5, "FilialOrigemId": 2, "FilialDestinoId": 2 },
+    { "DataInicio": "2025-03-01 00:00:00", "DataFim": "2025-03-04 00:00:00", "Preco": 195.00, "Multa": 15.00, "FuncionarioId": 1, "ClienteId": 2, "AutomovelId": 6, "FilialOrigemId": 3, "FilialDestinoId": 3 },
+    { "DataInicio": "2025-04-05 00:00:00", "DataFim": "2025-04-07 00:00:00", "Preco": 105.00, "Multa": 0.00, "FuncionarioId": 2, "ClienteId": 1, "AutomovelId": 7, "FilialOrigemId": 1, "FilialDestinoId": 1 },
+    { "DataInicio": "2025-03-22 00:00:00", "DataFim": "2025-03-26 00:00:00", "Preco": 240.00, "Multa": 0.00, "FuncionarioId": 3, "ClienteId": 5, "AutomovelId": 8, "FilialOrigemId": 2, "FilialDestinoId": 1 },
+    { "DataInicio": "2025-02-18 00:00:00", "DataFim": "2025-02-22 00:00:00", "Preco": 280.00, "Multa": 20.00, "FuncionarioId": 4, "ClienteId": 3, "AutomovelId": 9, "FilialOrigemId": 3, "FilialDestinoId": 3 },
+    { "DataInicio": "2025-04-01 00:00:00", "DataFim": "2025-04-03 00:00:00", "Preco": 110.00, "Multa": 0.00, "FuncionarioId": 5, "ClienteId": 4, "AutomovelId": 10, "FilialOrigemId": 1, "FilialDestinoId": 1 }
+  ],
+  "Funcao": [
+    { "Descricao": "Gestor de Filial", "SalarioBase": 2000 },
+    { "Descricao": "Assistente de Atendimento", "SalarioBase": 1100 },
+    { "Descricao": "Técnico de Manutenção", "SalarioBase": 1300 },
+    { "Descricao": "Operador de Reservas", "SalarioBase": 1200 },
+    { "Descricao": "Gestor Comercial", "SalarioBase": 1800 }
+  ],
+  "Exerce": [
+    { "FuncionarioId": 1, "FuncaoId": 1 },
+    { "FuncionarioId": 2, "FuncaoId": 1 },
+    { "FuncionarioId": 3, "FuncaoId": 1 },
+    { "FuncionarioId": 4, "FuncaoId": 2 },
+    { "FuncionarioId": 5, "FuncaoId": 5 }
+  ]
+}
