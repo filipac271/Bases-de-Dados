@@ -78,6 +78,7 @@ SELECT DISTINCT FI.Id AS Filial, FI.Localizacao, sum(AL.Preco) AS Receita
 -- RM15
 -- Listar todos os clientes assim como as filiais onde fizeram alugueres
 -- (Id cliente, Nome cliente, Id filial, Localizacao)
+
 SELECT DISTINCT CL.Id, CL.Nome, FI.Id, FI.Localizacao
 	FROM Cliente AS CL
     INNER JOIN Aluguer AS AL
