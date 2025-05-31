@@ -18,7 +18,6 @@ SELECT CL.Id AS Cliente, CL.Nome, AU.Id AS Automovel, AU.Marca, AU.Ano, AU.Estad
 		ON CL.Id = AL.ClienteId
 	INNER JOIN Automovel AS AU
 		ON AL.AutomovelId = AU.Id
-	ORDER BY AU.Id ASC; -- Como pedia para listar carros, pareceu-me bem ordenar pelo id deles
 
 -- RM9
 -- Listar todo o tipo e função que existe associado a pelo menos um funcionario
@@ -63,11 +62,11 @@ SELECT DISTINCT AU.Marca, count(AL.Id)
 	FROM Automovel AS AU
     LEFT OUTER JOIN Aluguer AS AL
 		ON AU.Id = AL.AutomovelId
-    GROUP BY AU.Marca; -- A marca conter o modelo(?) do trabalho faz com que a mm marca tenha múltiplos valores 
+    GROUP BY AU.Marca;
 
 -- RM14
--- Gerar uma lista ordenada por ordem decrescente de rendimento
--- todas as filiais (Id, Localização)
+-- Gerar uma lista ordenada por ordem decrescente do rendimento de todas as filiais
+-- (Id, Localização)
 SELECT DISTINCT FI.Id AS Filial, FI.Localizacao, sum(AL.Preco) AS Receita
 	FROM Filial AS FI
     LEFT OUTER JOIN Aluguer as AL
@@ -85,7 +84,6 @@ SELECT DISTINCT CL.Id, CL.Nome, FI.Id, FI.Localizacao
 		ON CL.Id = AL.ClienteId
     INNER JOIN Filial AS FI
 		ON AL.RecolhidoFilialId = FI.Id
-	ORDER BY (CL.Id) ASC; -- Só para ficar + facil de ler, mas se calhar retirar já que não é pedido?
 
 -- RM16
 -- Verificar a Filial com um maior número de automóveis
@@ -100,7 +98,11 @@ SELECT FI.Id AS Filial, FI.Localizacao, count(*) AS NrCarros
 
 -- RM17
 -- Listar todos os alugueres associados a um cliente com base no seu identificador
--- Incompleto
-SELECT AL.*
-	FROM Aluguer AS AL
-    WHERE AL.ClienteId = 1;
+DELIMITER $$
+CREATE PROCEDURE alugueresDoCliente
+	(IN IdCliente INT)
+BEGIN
+	SELECT AL.*
+		FROM Aluguer AS AL
+		WHERE AL.ClienteId = IdCliente;
+END $$
