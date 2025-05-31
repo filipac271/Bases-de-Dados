@@ -10,14 +10,28 @@ CREATE ROLE 'gestorFilial';
 GRANT INSERT ON BelaRentaCar.Funcao TO 'gestorFilial';
 
 -- RC10
-GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Funcionario TO 'gestorFilial';
-
+GRANT  DELETE, UPDATE ON BelaRentaCar.Funcionario TO 'gestorFilial';
+-- grant procedure inserir funcionario com funçao
+-- inserir: insere o moço e tmb recebe um id de funçoa que é inserido no exerce (dá erro se n existir)
+ 
 -- RC11
 GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Automovel TO 'gestorFilial';
+
+-- RC13 
+GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Cliente TO 'gestorFilial';
+-- criar cliente que recebe as infos do cliente e do aluguer 
+
+GRANT INSERT, DELETE ON BelaRentaCar.Cliente_Contacto TO 'gestorFilial';
+
+GRANT UPDATE (DataFim) ON BelaRentaCar.Aluguer TO 'gestorFilial';
+
 
 
 DROP USER IF EXISTS 'octavio'@'localhost';
 CREATE USER 'octavio'@'localhost' IDENTIFIED BY 'Octavio#2025';
+GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Filial to 'octavio';
+-- 
+-- criar filial que recebe info de uma filial, funcionario (chama a outra procedure para tratar da funçao), carro
 
 DROP USER IF EXISTS 'leonidas'@'localhost';
 CREATE USER 'leonidas'@'localhost' IDENTIFIED BY 'Leonidas#2025';
@@ -52,5 +66,29 @@ DROP USER IF EXISTS 'evarocha'@'localhost';
 CREATE USER 'evarocha'@'localhost' IDENTIFIED BY 'EvaRocha#2025';
 
 
+GRANT SELECT ON BelaRentaCar.* TO 'gestorFilial';
+GRANT SELECT ON BelaRentaCar.* TO 'Funcionario';
+
+
+
 GRANT 'Funcionario' TO 'josemartins'@'localhost';
 GRANT 'Funcionario' TO 'evarocha'@'localhost';
+
+GRANT 'Funcionario' TO 'octavio'@'localhost';
+GRANT 'Funcionario' TO 'leonidas'@'localhost';
+GRANT 'Funcionario' TO 'alberto'@'localhost';
+
+SET DEFAULT ROLE 'gestorFilial', 'Funcionario' TO 'octavio'@'localhost';
+SET DEFAULT ROLE 'gestorFilial', 'Funcionario' TO 'leonidas'@'localhost';
+SET DEFAULT ROLE 'gestorFilial', 'Funcionario' TO 'alberto'@'localhost';
+
+SET DEFAULT ROLE 'Funcionario' TO 'josemartins'@'localhost';
+SET DEFAULT ROLE 'Funcionario' TO 'evarocha'@'localhost';
+
+
+GRANT USAGE ON BelaRentaCar.* TO 'octavio'@'localhost';
+GRANT USAGE ON BelaRentaCar.* TO 'leonidas'@'localhost';
+GRANT USAGE ON BelaRentaCar.* TO 'alberto'@'localhost';
+
+GRANT USAGE ON BelaRentaCar.* TO 'josemartins'@'localhost';
+GRANT USAGE ON BelaRentaCar.* TO 'evarocha'@'localhost';

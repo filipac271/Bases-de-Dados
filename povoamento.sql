@@ -67,9 +67,6 @@ INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId
 
 
 
-
-
-
 -- Inserir Funções
 INSERT INTO Funcao (Designacao, SalarioBase) VALUES
 ('Gestor de Filial', 2000),

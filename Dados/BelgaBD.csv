@@ -1,0 +1,66 @@
+Filial;Localizacao
+Filial;Portugal
+Filial;Mónaco
+Filial;Bélgica
+Cliente;Nome;Rua;Localidade;CodigoPostal;NIF;LocalTrabalho
+Cliente;Akio Toyoda;Rua Toyoda;Japao;1234-234;111111111;Toyota Group
+Cliente;Oliver Blume;Rua Porsche;Alemanha;5432-111;222222222;Volkswagen Group
+Cliente;Carlos Tavares;Rua Europa;Portugal;1500-000;333333333;Stellantis
+Cliente;Jim Farley;Ford Street;Estados Unidos;9021-420;444444444;Ford Motor Company
+Cliente;Luca de Meo;Via Milano;Itália;2010-500;555555555;Renault Group
+Cliente;Toshihiro Mibe;Rua Honda;Japao;1245-678;666666666;Honda Motor Co.
+Cliente;Makoto Uchida;Rua Yokohama;Japao;1267-890;777777777;Nissan Motor Co.
+Cliente;Mary Barra;Detroit Ave;Estados Unidos;4822-300;888888888;General Motors
+Cliente;Harald Krüger;München Straße;Alemanha;8033-500;999999999;BMW Group
+Cliente;Zhou Xiaoqing;Rua Geely;China;1000-888;101010101;Geely Holding Group
+Cliente_Contacto;ClienteId;Telefone;Email
+Cliente_Contacto;1;910234567;akio.toyoda@toyota.jp
+Cliente_Contacto;2;920345678;oliver.blume@vwgroup.de
+Cliente_Contacto;3;930456789;carlos.tavares@stellantis.com
+Cliente_Contacto;4;940567890;jim.farley@ford.com
+Cliente_Contacto;5;950678901;luca.demeo@renault.it
+Cliente_Contacto;6;960789012;toshihiro.mibe@honda.jp
+Cliente_Contacto;7;970890123;makoto.uchida@nissan.jp
+Cliente_Contacto;8;980901234;mary.barra@gm.com
+Cliente_Contacto;9;990012345;harald.kruger@bmw.de
+Cliente_Contacto;10;900123456;zhou.xiaoqing@geely.cn
+Automovel;Marca;Kilometragem;Ano;Estado;TipoConsumo;PrecoDia;FilialId
+Automovel;Toyota Corolla;45000;2020;Disponível;Gasolina;45.00;1
+Automovel;Volkswagen Golf;30000;2021;Ocupado;Diesel;50.00;2
+Automovel;Peugeot 208;15000;2022;Disponível;Gasolina;40.00;3
+Automovel;Renault Clio;60000;2019;Manutenção;Gasolina;38.00;1
+Automovel;Ford Focus;50000;2020;Disponível;Diesel;42.00;2
+Automovel;BMW Série 1;25000;2021;Ocupado;Gasolina;65.00;3
+Automovel;Fiat 500;12000;2023;Disponível;Elétrico;35.00;1
+Automovel;Audi A3;40000;2020;Disponível;Diesel;60.00;2
+Automovel;Mercedes A-Class;28000;2022;Disponível;Gasolina;70.00;3
+Automovel;Nissan Leaf;18000;2021;Ocupado;Elétrico;55.00;1
+Funcionario;Nome;NIF;Salario;Email;Telefone;FilialId
+Funcionario;Octavio Faísca;111223333;3000.00;octfaisca@belarentacar.com;960123456;1
+Funcionario;Leonidas Lindt;222334444;2000.00;lindt@belarentacar.com;961234567;2
+Funcionario;Afonso Senna;333445555;2000.00;senna@belarentacar.com;962345678;3
+Funcionario;José Martins;444556666;2000.00;jose.martins@belarentacar.com;963456789;1
+Funcionario;Eva Rocha;555667777;2000.00;eva.rocha@belarentacar.com;964567890;2 ~
+Aluguer;DataInicio;DataFim;Preco;Multa;ClienteId;FuncionarioId;AutomovelId;RecolhidoFilialId;DevolvidoFilialId
+Aluguer;2025-04-01 00:00:00;2025-04-05 00:00:00;180.00;0.00;1;2;1;1;1
+Aluguer;2025-03-15 00:00:00;2025-03-17 00:00:00;100.00;10.00;2;1;2;2;2
+Aluguer;2025-04-10 00:00:00;2025-04-13 00:00:00;120.00;0.00;3;3;3;3;3
+Aluguer;2025-02-05 00:00:00;2025-02-07 00:00:00;76.00;5.00;4;5;4;1;2
+Aluguer;2025-01-20 00:00:00;2025-01-24 00:00:00;168.00;0.00;5;4;5;2;2
+Aluguer;2025-03-01 00:00:00;2025-03-04 00:00:00;195.00;15.00;1;2;6;3;3
+Aluguer;2025-04-05 00:00:00;2025-04-07 00:00:00;105.00;0.00;2;1;7;1;1
+Aluguer;2025-03-22 00:00:00;2025-03-26 00:00:00;240.00;0.00;3;5;8;2;1
+Aluguer;2025-02-18 00:00:00;2025-02-22 00:00:00;280.00;20.00;4;3;9;3;3
+Aluguer;2025-04-01 00:00:00;2025-04-03 00:00:00;110.00;0.00;5;4;10;1;1
+Funcao;Designacao;SalarioBase
+Funcao;Gestor de Filial;2000
+Funcao;Assistente de Atendimento;1100
+Funcao;Técnico de Manutenção;1300
+Funcao;Operador de Reservas;1200
+Funcao;Gestor Comercial;1800
+Exerce;FuncionarioId;FuncaoId
+Exerce;1;1
+Exerce;2;1
+Exerce;3;1
+Exerce;4;2
+Exerce;5;5
