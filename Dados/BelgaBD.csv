@@ -1,6 +1,3 @@
-Filial;Bruxelas
-Filial;Antuérpia
-Filial;Gante
 Cliente;Jan Peeters;Rue de la Loi;Bélgica;1000;010101010;Peeters Group
 Cliente;Sofie Claes;Koningin Elisabethlaan;Bélgica;2000;020202020;Claes NV
 Cliente;Luc Dupont;Avenue Louise;Bélgica;1050;030303030;Dupont SA
@@ -11,7 +8,6 @@ Cliente;Tom Willems;Vrijheidslaan;Bélgica;9000;070707070;Willems Group
 Cliente;An Van Damme;Sint-Pietersplein;Bélgica;8000;080808080;Van Damme NV
 Cliente;Karel Vermeulen;Stationsstraat;Bélgica;8500;090909090;Vermeulen BV
 Cliente;Liesbeth Hermans;Maastrichtersteenweg;Bélgica;3000;101010101;Hermans Ltd
-Cliente_Contacto;ClienteId;Telefone;Email
 Cliente_Contacto;1;012345678;jan.peeters@peeters.be
 Cliente_Contacto;2;023456789;sofie.claes@claes.be
 Cliente_Contacto;3;034567890;luc.dupont@dupont.be
@@ -22,32 +18,32 @@ Cliente_Contacto;7;078901234;tom.willems@willems.be
 Cliente_Contacto;8;089012345;an.vandamme@vandamme.be
 Cliente_Contacto;9;090123456;karel.vermeulen@vermeulen.be
 Cliente_Contacto;10;101234567;liesbeth.hermans@hermans.be
-Automovel;Renault Clio;18000;2022;Disponível;Gasolina;40.00;1
+Automovel;Renault Clio;18000;2022;Disponível;Gasolina;40.00;2
 Automovel;Peugeot 208;22000;2021;Ocupado;Diesel;42.00;2
-Automovel;Volkswagen Golf;25000;2023;Disponível;Gasolina;45.00;3
-Automovel;Audi A3;27000;2020;Disponível;Gasolina;47.00;1
+Automovel;Volkswagen Golf;25000;2023;Disponível;Gasolina;45.00;2
+Automovel;Audi A3;27000;2020;Disponível;Gasolina;47.00;2
 Automovel;BMW Série 1;30000;2022;Disponível;Diesel;50.00;2
-Automovel;Opel Corsa;15000;2021;Ocupado;Elétrico;38.00;3
-Automovel;Ford Fiesta;17000;2023;Disponível;Gasolina;39.00;1
+Automovel;Opel Corsa;15000;2021;Ocupado;Elétrico;38.00;2
+Automovel;Ford Fiesta;17000;2023;Disponível;Gasolina;39.00;2
 Automovel;Mercedes A-Class;28000;2020;Disponível;Diesel;55.00;2
-Automovel;Tesla Model 3;35000;2022;Disponível;Elétrico;60.00;3
-Automovel;Volvo XC40;32000;2021;Ocupado;Gasolina;53.00;1
-Funcionario;Jan Claes;111223333;3200.00;jan.claes@belrentacar.be;0476123456;1
+Automovel;Tesla Model 3;35000;2022;Disponível;Elétrico;60.00;2
+Automovel;Volvo XC40;32000;2021;Ocupado;Gasolina;53.00;2
+Funcionario;Jan Claes;111223333;3200.00;jan.claes@belrentacar.be;0476123456;2
 Funcionario;Sofie Peeters;222334444;2800.00;sofie.peeters@belrentacar.be;0487123456;2
-Funcionario;Luc Dupont;333445555;2700.00;luc.dupont@belrentacar.be;0498123456;3
-Funcionario;Marie Janssens;444556666;2900.00;marie.janssens@belrentacar.be;0469123456;1
+Funcionario;Luc Dupont;333445555;2700.00;luc.dupont@belrentacar.be;0498123456;2
+Funcionario;Marie Janssens;444556666;2900.00;marie.janssens@belrentacar.be;0469123456;2
 Funcionario;Pieter Willems;555667777;2600.00;pieter.willems@belrentacar.be;0470123456;2
-Aluguer;2025-04-01 00:00:00;2025-04-05 00:00:00;190.00;0.00;1;2;1;1;1
+Aluguer;2025-04-01 00:00:00;2025-04-05 00:00:00;190.00;0.00;1;2;1;2;1
 Aluguer;2025-03-15 00:00:00;2025-03-17 00:00:00;110.00;10.00;2;1;2;2;2
-Aluguer;2025-04-10 00:00:00;2025-04-13 00:00:00;125.00;0.00;3;3;3;3;3
-Aluguer;2025-02-05 00:00:00;2025-02-07 00:00:00;80.00;5.00;4;5;4;1;2
+Aluguer;2025-04-10 00:00:00;2025-04-13 00:00:00;125.00;0.00;3;3;3;2;3
+Aluguer;2025-02-05 00:00:00;2025-02-07 00:00:00;80.00;5.00;4;5;4;2;2
 Aluguer;2025-01-20 00:00:00;2025-01-24 00:00:00;170.00;0.00;5;4;5;2;2
-Aluguer;2025-03-01 00:00:00;2025-03-04 00:00:00;200.00;15.00;1;2;6;3;3
-Aluguer;2025-04-05 00:00:00;2025-04-07 00:00:00;110.00;0.00;2;1;7;1;1
+Aluguer;2025-03-01 00:00:00;2025-03-04 00:00:00;200.00;15.00;1;2;6;2;3
+Aluguer;2025-04-05 00:00:00;2025-04-07 00:00:00;110.00;0.00;2;1;7;2;1
 Aluguer;2025-03-22 00:00:00;2025-03-26 00:00:00;250.00;0.00;3;5;8;2;1
-Aluguer;2025-02-18 00:00:00;2025-02-22 00:00:00;290.00;20.00;4;3;9;3;3
-Aluguer;2025-04-01 00:00:00;2025-04-03 00:00:00;115.00;0.00;5;4;10;1;1
-Funcao;Gestor de Filial;2100
+Aluguer;2025-02-18 00:00:00;2025-02-22 00:00:00;290.00;20.00;4;3;9;2;3
+Aluguer;2025-04-01 00:00:00;2025-04-03 00:00:00;115.00;0.00;5;4;10;2;1
+Funcao;Gestor de Filial ;2100
 Funcao;Assistente de Atendimento;1150
 Funcao;Técnico de Manutenção;1350
 Funcao;Operador de Reservas;1250

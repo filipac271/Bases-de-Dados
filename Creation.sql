@@ -8,7 +8,7 @@ USE BelaRentaCar;
 -- Tabela Filial
 CREATE TABLE IF NOT EXISTS Filial (
     Id INT NOT NULL AUTO_INCREMENT,
-    Localizacao VARCHAR(75) NOT NULL,
+    Localizacao VARCHAR(75) UNIQUE NOT NULL,
     PRIMARY KEY(Id)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Funcionario (
 -- Tabela Funcao
 CREATE TABLE IF NOT EXISTS Funcao (
     Id INT NOT NULL AUTO_INCREMENT,
-    Designacao VARCHAR(75) NOT NULL,
+    Designacao VARCHAR(75) UNIQUE NOT NULL,
     SalarioBase DECIMAL(8,2) NOT NULL,
     PRIMARY KEY(Id)
 );
@@ -96,4 +96,7 @@ CREATE TABLE IF NOT EXISTS Aluguer (
     FOREIGN KEY (RecolhidoFilialId) REFERENCES Filial(Id),
     FOREIGN KEY (DevolvidoFilialId) REFERENCES Filial(Id)
 );
+
+
+
 

@@ -1,13 +1,172 @@
 import mysql.connector
-import csv
-import json
 from mysql.connector import IntegrityError
 from decimal import Decimal
-
-
 import csv
+import json
 
-from decimal import Decimal
+def insereCliente(cursor, clientes):
+    for cliente in clientes:
+        try:
+            cursor.execute("""
+                INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (
+                cliente['Nome'],
+                cliente['Rua'],
+                cliente['Localidade'],
+                cliente['CodigoPostal'],
+                cliente['NIF'],
+                cliente['LocalTrabalho']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Cliente ignorada: {e}")
+            else:
+                print(f"Erro de integridade Cliente: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Cliente: {e}")
+
+def insereClienteContacto(cursor, contactos):
+    for contacto in contactos:
+        try:
+            cursor.execute("""
+                INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email)
+                VALUES (%s, %s, %s)
+            """, (
+                contacto['ClienteId'],
+                contacto['Telefone'],
+                contacto['Email']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Cliente_Contacto ignorada: {e}")
+            else:
+                print(f"Erro de integridade Cliente_Contacto: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Cliente_Contacto: {e}")
+
+def insereAutomovel(cursor, automoveis):
+    for auto in automoveis:
+        try:
+            cursor.execute("""
+                INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """, (
+                auto['Marca'],
+                auto['Kilometragem'],
+                auto['Ano'],
+                auto['Estado'],
+                auto['TipoConsumo'],
+                auto['PrecoDia'],
+                auto['FilialId']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Automovel ignorada: {e}")
+            else:
+                print(f"Erro de integridade Automovel: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Automovel: {e}")
+
+def insereFuncionario(cursor, funcionarios):
+    for func in funcionarios:
+        try:
+            cursor.execute("""
+                INSERT INTO Funcionario (Nome, NIF, Salario, Email, Telefone, FilialId)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (
+                func['Nome'],
+                func['NIF'],
+                func['Salario'],
+                func['Email'],
+                func['Telefone'],
+                func['FilialId']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Funcionario ignorada: {e}")
+            else:
+                print(f"Erro de integridade Funcionario: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Funcionario: {e}")
+
+def insereAluguer(cursor, alugueres):
+    for aluguer in alugueres:
+        try:
+            cursor.execute("""
+                INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, FuncionarioId, ClienteId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """, (
+                aluguer['DataInicio'],
+                aluguer['DataFim'],
+                aluguer['Preco'],
+                aluguer['Multa'],
+                aluguer['FuncionarioId'],
+                aluguer['ClienteId'],
+                aluguer['AutomovelId'],
+                aluguer['RecolhidoFilialId'],
+                aluguer['DevolvidoFilialId']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Aluguer ignorada: {e}")
+            else:
+                print(f"Erro de integridade Aluguer: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Aluguer: {e}")
+
+def insereFuncao(cursor, funcoes):
+    for funcao in funcoes:
+        try:
+            cursor.execute("""
+                INSERT INTO Funcao (Designacao, SalarioBase)
+                VALUES (%s, %s)
+            """, (
+                funcao['Designacao'],
+                funcao['SalarioBase']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Funcao ignorada: {e}")
+            else:
+                print(f"Erro de integridade Funcao: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Funcao: {e}")
+
+def insereExerce(cursor, exerces):
+    for exerce in exerces:
+        try:
+            cursor.execute("""
+                INSERT INTO Exerce (FuncionarioId, FuncaoId)
+                VALUES (%s, %s)
+            """, (
+                exerce['FuncionarioId'],
+                exerce['FuncaoId']
+            ))
+        except IntegrityError as e:
+            if e.errno == 1062:
+                print(f"Entrada duplicada Exerce ignorada: {e}")
+            else:
+                print(f"Erro de integridade Exerce: {e}")
+        except Exception as e:
+            print(f"Erro inesperado Exerce: {e}")
+            
+            
+            
+
+def migraJson(cursor):
+    with open('Dados/PortugalBD.json', 'r', encoding='utf-8') as f:
+        dados = json.load(f)
+    
+    insereCliente(cursor, dados.get('Cliente', []))
+    insereClienteContacto(cursor, dados.get('Cliente_Contacto', []))
+    insereAutomovel(cursor, dados.get('Automovel', []))
+    insereFuncionario(cursor, dados.get('Funcionario', []))
+    insereAluguer(cursor, dados.get('Aluguer', []))
+    insereFuncao(cursor, dados.get('Funcao', []))
+    insereExerce(cursor, dados.get('Exerce', []))
+
+
 
 def migraCsv(cursor):
     with open('Dados/BelgaBD.csv', newline='', encoding='utf-8') as ficheiro:
@@ -16,13 +175,8 @@ def migraCsv(cursor):
             print(linha)
             try:
                 tipo = linha[0]
-                if tipo == 'Filial':
-                        cursor.execute(
-                            "INSERT INTO Filial (Localizacao) VALUES (%s);",
-                            (linha[1],) # È preciso ter a virgula para ser considerado um tuplo
-                        )
 
-                elif tipo == 'Cliente':
+                if tipo == 'Cliente':
                         nome, rua, localidade, codigoPostal, nif, localTrabalho = linha[1:]
                         print(codigoPostal)
                         cursor.execute(
@@ -123,14 +277,15 @@ def main():
     cursor = conn.cursor()
 
     migraCsv(cursor)
+    migraJson(cursor)
     conn.commit()
 
 
-    # cursor.execute("SELECT * FROM Automovel")
-    # resultados = cursor.fetchall()
+    cursor.execute("SELECT * FROM Automovel")
+    resultados = cursor.fetchall()
 
-    # for row in resultados:
-    #     print(row)
+    for row in resultados:
+        print(row)
 
 
     cursor.close()
