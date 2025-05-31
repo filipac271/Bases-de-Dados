@@ -54,6 +54,7 @@ CREATE ROLE 'Funcionario';
 
 -- RC4
 GRANT INSERT ON BelaRentaCar.Aluguer TO 'Funcionario';
+-- Procedure de criar aluguer que confirma a disponibilidade 
 
 -- RC5 
 GRANT UPDATE (Multa) ON BelaRentaCar.Aluguer TO 'Funcionario';
