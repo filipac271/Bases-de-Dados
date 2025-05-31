@@ -1,13 +1,4 @@
-SHOW TABLES;
-
-DESC Aluguer;
-DESC Automovel;
-DESC Cliente;
-DESC Cliente_Contacto;
-DESC Exerce;
-DESC Filial;
-DESC Funcao;
-DESC Funcionario;
+USE BelaRentaCar;
 
 -- RM8
 -- Listar todos os automoveis que já foram alugados e os respetivos clientes que os alugaram
@@ -17,7 +8,7 @@ SELECT CL.Id AS Cliente, CL.Nome, AU.Id AS Automovel, AU.Marca, AU.Ano, AU.Estad
     INNER JOIN Aluguer AL
 		ON CL.Id = AL.ClienteId
 	INNER JOIN Automovel AS AU
-		ON AL.AutomovelId = AU.Id
+		ON AL.AutomovelId = AU.Id;
 
 -- RM9
 -- Listar todo o tipo e função que existe associado a pelo menos um funcionario
@@ -58,7 +49,7 @@ SELECT AL.Id, AL.AutomovelId, AL.Preco, AL.DataInicio, AL.DataFim, AL.RecolhidoF
 
 -- RM13
 -- Gerar uma lista do número de alugueres das diferentes marcas de automóveis já alugados
-SELECT DISTINCT AU.Marca, count(AL.Id)
+SELECT AU.Marca, count(AL.Id)
 	FROM Automovel AS AU
     LEFT OUTER JOIN Aluguer AS AL
 		ON AU.Id = AL.AutomovelId
@@ -67,12 +58,12 @@ SELECT DISTINCT AU.Marca, count(AL.Id)
 -- RM14
 -- Gerar uma lista ordenada por ordem decrescente do rendimento de todas as filiais
 -- (Id, Localização)
-SELECT DISTINCT FI.Id AS Filial, FI.Localizacao, sum(AL.Preco) AS Receita
+SELECT FI.Id AS Filial, FI.Localizacao, sum(AL.Preco) AS Receita
 	FROM Filial AS FI
     LEFT OUTER JOIN Aluguer as AL
 		ON FI.Id = AL.RecolhidoFilialId
     GROUP BY FI.Id
-    ORDER BY (Rendimento) DESC;
+    ORDER BY (Receita) DESC;
 
 -- RM15
 -- Listar todos os clientes assim como as filiais onde fizeram alugueres
@@ -83,7 +74,7 @@ SELECT DISTINCT CL.Id, CL.Nome, FI.Id, FI.Localizacao
     INNER JOIN Aluguer AS AL
 		ON CL.Id = AL.ClienteId
     INNER JOIN Filial AS FI
-		ON AL.RecolhidoFilialId = FI.Id
+		ON AL.RecolhidoFilialId = FI.Id;
 
 -- RM16
 -- Verificar a Filial com um maior número de automóveis
