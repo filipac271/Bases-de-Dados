@@ -5,15 +5,15 @@
 DROP ROLE IF EXISTS 'gestorFilial';
 CREATE ROLE 'gestorFilial';
 
--- RC5 e RC12
-GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Automovel TO 'gestorFilial';
 
--- RC10
+-- RC9
 GRANT INSERT ON BelaRentaCar.Funcao TO 'gestorFilial';
 
--- RC11
+-- RC10
 GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Funcionario TO 'gestorFilial';
 
+-- RC11
+GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Automovel TO 'gestorFilial';
 
 
 DROP USER IF EXISTS 'octavio'@'localhost';
@@ -41,7 +41,7 @@ CREATE ROLE 'Funcionario';
 -- RC4
 GRANT INSERT ON BelaRentaCar.Aluguer TO 'Funcionario';
 
--- RC6 
+-- RC5 
 GRANT UPDATE (Multa) ON BelaRentaCar.Aluguer TO 'Funcionario';
 
 
