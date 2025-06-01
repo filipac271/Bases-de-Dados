@@ -28,6 +28,7 @@ Automovel;Ford Fiesta;17000;2023;Disponível;Gasolina;39.00;2
 Automovel;Mercedes A-Class;28000;2020;Disponível;Diesel;55.00;2
 Automovel;Tesla Model 3;35000;2022;Disponível;Elétrico;60.00;2
 Automovel;Volvo XC40;32000;2021;Ocupado;Gasolina;53.00;2
+Funcionario;Leonidas Lindt;222334444;4000.00;lindt@belarentacar.com;961234567;2
 Funcionario;Jan Claes;111223333;3200.00;jan.claes@belrentacar.be;0476123456;2
 Funcionario;Sofie Peeters;222334444;2800.00;sofie.peeters@belrentacar.be;0487123456;2
 Funcionario;Luc Dupont;333445555;2700.00;luc.dupont@belrentacar.be;0498123456;2
@@ -47,8 +48,10 @@ Funcao;Gestor de Filial Belga ;2100
 Funcao;Assistente de Atendimento Belga;1150
 Funcao;Técnico de Manutenção Belga;1350
 Funcao;Gestor Comercial Belga;1850
-Exerce;1;2
+Exerce;1;1
 Exerce;2;2
 Exerce;3;3
 Exerce;4;2
 Exerce;5;4
+Exerce;6;4
+
