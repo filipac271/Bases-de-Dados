@@ -34,7 +34,12 @@
     { "DataInicio": "2025-05-03 00:00:00", "DataFim": "2025-05-04 00:00:00", "Preco": 60.00, "Multa": 0.00, "FuncionarioId": 4, "ClienteId": 4, "AutomovelId": 6, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 }
   ],
   "Funcao": [
-    { "Designacao": "Segurança", "SalarioBase": 1300 }
+    { "Designacao": "Gestor de Filial Portugues", "SalarioBase": 1800 },
+    { "Designacao": "Assistente de Atendimento Portugues", "SalarioBase": 1100 },
+    { "Designacao": "Técnico de Manutenção Portugues", "SalarioBase": 1300 },
+    { "Designacao": "Gestor Comercial Portugues", "SalarioBase": 1400 },
+    { "Designacao": "Segurança Portugues", "SalarioBase": 1200 }
+
   ],
   "Exerce": [
     { "FuncionarioId": 1, "FuncaoId": 4 },

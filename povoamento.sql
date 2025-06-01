@@ -1,8 +1,8 @@
 -- Inserir Filiais
 INSERT INTO Filial (Localizacao) VALUES
 ('Portugal'),
-('Mónaco'),
-('Bélgica');
+('Bélgica'),
+('Mónaco');
 
 
 INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VALUES

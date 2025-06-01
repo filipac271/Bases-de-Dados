@@ -1,5 +1,6 @@
 import mysql.connector
 from mysql.connector import IntegrityError
+import psycopg2
 from decimal import Decimal
 import csv
 import json
@@ -26,14 +27,14 @@ def insereCliente(cursor, clientes):
         except Exception as e:
             print(f"Erro inesperado Cliente: {e}")
 
-def insereClienteContacto(cursor, contactos):
+def insereClienteContacto(cursor, contactos,offset):
     for contacto in contactos:
         try:
             cursor.execute("""
                 INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email)
                 VALUES (%s, %s, %s)
             """, (
-                contacto['ClienteId'],
+                contacto['ClienteId'] + offset,
                 contacto['Telefone'],
                 contacto['Email']
             ))
@@ -90,8 +91,9 @@ def insereFuncionario(cursor, funcionarios):
         except Exception as e:
             print(f"Erro inesperado Funcionario: {e}")
 
-def insereAluguer(cursor, alugueres):
+def insereAluguer(cursor, alugueres,offsetCliente,offsetAutomovel,offsetFuncionario):
     for aluguer in alugueres:
+        print(aluguer['ClienteId'] + offsetCliente)
         try:
             cursor.execute("""
                 INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, FuncionarioId, ClienteId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
@@ -101,9 +103,9 @@ def insereAluguer(cursor, alugueres):
                 aluguer['DataFim'],
                 aluguer['Preco'],
                 aluguer['Multa'],
-                aluguer['FuncionarioId'],
-                aluguer['ClienteId'],
-                aluguer['AutomovelId'],
+                aluguer['FuncionarioId'] + offsetFuncionario,
+                aluguer['ClienteId'] + offsetCliente,
+                aluguer['AutomovelId'] + offsetAutomovel,
                 aluguer['RecolhidoFilialId'],
                 aluguer['DevolvidoFilialId']
             ))
@@ -133,15 +135,15 @@ def insereFuncao(cursor, funcoes):
         except Exception as e:
             print(f"Erro inesperado Funcao: {e}")
 
-def insereExerce(cursor, exerces):
+def insereExerce(cursor, exerces, offsetFuncao, offsetFuncionario):
     for exerce in exerces:
         try:
             cursor.execute("""
                 INSERT INTO Exerce (FuncionarioId, FuncaoId)
                 VALUES (%s, %s)
             """, (
-                exerce['FuncionarioId'],
-                exerce['FuncaoId']
+                exerce['FuncionarioId'] + offsetFuncionario,
+                exerce['FuncaoId'] + offsetFuncao
             ))
         except IntegrityError as e:
             if e.errno == 1062:
@@ -153,18 +155,27 @@ def insereExerce(cursor, exerces):
             
             
             
+def get_offset(tabela,cursor):
+        cursor.execute(f"SELECT MAX(Id) FROM {tabela};")
+        result = cursor.fetchone()
+        return result[0] if result[0] else 0
 
 def migraJson(cursor):
     with open('Dados/PortugalBD.json', 'r', encoding='utf-8') as f:
         dados = json.load(f)
-    
+
+    offset_funcao = get_offset("Funcao",cursor)
+    offset_funcionario = get_offset("Funcionario",cursor)
+    offset_cliente = get_offset("Cliente",cursor)
+    offset_automovel = get_offset("Automovel",cursor)
+
     insereCliente(cursor, dados.get('Cliente', []))
-    insereClienteContacto(cursor, dados.get('Cliente_Contacto', []))
+    insereClienteContacto(cursor, dados.get('Cliente_Contacto', []),offset_cliente)
     insereAutomovel(cursor, dados.get('Automovel', []))
     insereFuncionario(cursor, dados.get('Funcionario', []))
-    insereAluguer(cursor, dados.get('Aluguer', []))
+    insereAluguer(cursor, dados.get('Aluguer', []),offset_cliente,offset_automovel,offset_funcionario)
     insereFuncao(cursor, dados.get('Funcao', []))
-    insereExerce(cursor, dados.get('Exerce', []))
+    insereExerce(cursor, dados.get('Exerce', []),offset_funcao,offset_funcionario)
 
 
 
@@ -264,7 +275,107 @@ def migraCsv(cursor):
                 # Para outros erros
                 print(f"Erro inesperado: {e}")
 
-            
+
+
+def migraPostgres(pgCursor, mysqlCursor):
+    def safe_insert(query, data):
+        try:
+            mysqlCursor.execute(query, data)
+        except mysql.connector.IntegrityError as e:
+            if e.errno == mysql.connector.errorcode.ER_DUP_ENTRY:
+                print(f"Entrada duplicada ignorada: {data}")
+            else:
+                raise e  
+    
+    
+    offset_funcao = get_offset("Funcao",mysqlCursor)
+    offset_funcionario = get_offset("Funcionario",mysqlCursor)
+    offset_cliente = get_offset("Cliente",mysqlCursor)
+    offset_automovel = get_offset("Automovel",mysqlCursor)
+
+    # Funcao
+    insert_funcao = """
+        INSERT INTO Funcao (Designacao, SalarioBase) VALUES (%s, %s)
+    """
+    pgCursor.execute("SELECT Designacao, SalarioBase FROM Funcao;")
+    for row in pgCursor.fetchall():
+        safe_insert(insert_funcao, row)
+
+    # Funcionario
+    insert_funcionario = """
+        INSERT INTO Funcionario (Nome, NIF, Salario, Telefone, Email, FilialId)
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """
+    pgCursor.execute("SELECT Nome, NIF, Salario, Telefone, Email, FilialId FROM Funcionario;")
+    for row in pgCursor.fetchall():
+        safe_insert(insert_funcionario, row)
+
+    # Exerce
+    insert_exerce = "INSERT INTO Exerce (FuncionarioId, FuncaoId) VALUES (%s, %s)"
+    pgCursor.execute("SELECT FuncionarioId, FuncaoId FROM Exerce;")
+    for row in pgCursor.fetchall():
+        row = list(row)
+        row[0] += offset_funcionario
+        row[1] += offset_funcao        
+        safe_insert(insert_exerce, row)
+
+    # Cliente
+    insert_cliente = """
+        INSERT INTO Cliente (Nome, NIF, LocalTrabalho, Rua, Localidade, CodigoPostal)
+        VALUES (%s, %s, %s, %s, %s, %s)
+    """
+    pgCursor.execute("SELECT Nome, NIF, LocalTrabalho, Rua, Localidade, CodigoPostal FROM Cliente;")
+    for row in pgCursor.fetchall():
+        safe_insert(insert_cliente, row)
+
+    # Cliente_Contacto
+    insert_cliente_contacto = """
+        INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email)
+        VALUES (%s, %s, %s)
+    """
+    pgCursor.execute("SELECT ClienteId, Telefone, Email FROM Cliente_Contacto;")
+    for row in pgCursor.fetchall():
+        row = list(row)
+        row[0] += offset_cliente
+        safe_insert(insert_cliente_contacto, row)
+
+
+    # Automovel
+    insert_automovel = """
+        INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    """
+    pgCursor.execute("SELECT Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId FROM Automovel;")
+    for row in pgCursor.fetchall():
+        safe_insert(insert_automovel, row)
+
+
+
+
+    # Aluguer
+    insert_aluguer = """
+        INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    pgCursor.execute("""
+        SELECT DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId FROM Aluguer;
+    """)
+    for row in pgCursor.fetchall():
+        row = list(row)
+        row[4] += offset_cliente
+        row[5] += offset_funcionario
+
+        row[6] += offset_automovel
+        safe_insert(insert_aluguer, row)
+
+    print("Migração concluída com sucesso.")
+
+
+    
+
+
+
+
 
 def main():
     conn = mysql.connector.connect(
@@ -274,15 +385,28 @@ def main():
         database="BelaRentaCar"
     )
 
+    conn_params = {
+        'host': 'localhost',
+        'port': 5432,
+        'database': 'belarentacarmonaco',
+        'user': 'root',
+        'password': 'root'
+    }
+
+    pgconn = psycopg2.connect(**conn_params)
+
+    pgCursor = pgconn.cursor()
+
     cursor = conn.cursor()
 
     migraCsv(cursor)
     migraJson(cursor)
+    migraPostgres(pgCursor,cursor)
     conn.commit()
 
 
-    cursor.execute("SELECT * FROM Automovel")
-    resultados = cursor.fetchall()
+    pgCursor.execute("SELECT * FROM Automovel")
+    resultados = pgCursor.fetchall()
 
     for row in resultados:
         print(row)
@@ -290,7 +414,8 @@ def main():
 
     cursor.close()
     conn.close()
-    
+    pgCursor.close()
+    pgconn.close()
 
 
 if __name__ == "__main__":
