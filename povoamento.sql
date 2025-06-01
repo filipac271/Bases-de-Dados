@@ -1,3 +1,4 @@
+USE BelaRentaCar;
 -- Inserir Filiais
 INSERT INTO Filial (Localizacao) VALUES
 ('Portugal'),

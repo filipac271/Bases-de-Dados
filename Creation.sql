@@ -1,5 +1,5 @@
 -- Criar a base de dados
-DROP DATABASE BelaRentaCar;
+DROP DATABASE IF EXISTS BelaRentaCar;
 CREATE DATABASE IF NOT EXISTS BelaRentaCar
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;

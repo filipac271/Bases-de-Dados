@@ -1,5 +1,7 @@
+USE BelaRentaCar;
 DELIMITER $$
 
+DROP PROCEDURE IF EXISTS AddFuncionarioComFuncao;
 CREATE PROCEDURE AddFuncionarioComFuncao(
     IN pNome VARCHAR(75),
     IN pNIF VARCHAR(9),
@@ -23,7 +25,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-
+DROP PROCEDURE IF EXISTS CriarFilialFuncionarioCarro;
 CREATE PROCEDURE CriarFilialFuncionarioCarro(
     IN pLocalizacao VARCHAR(75),
     IN pNomeFuncionario VARCHAR(75),
@@ -63,9 +65,8 @@ END $$
 DELIMITER ;
 
 -- Função que calcula o custo do aluguer de um automóvel
-DROP FUNCTION IF EXISTS calculaPreco
-
 DELIMITER $$
+DROP FUNCTION IF EXISTS calculaPreco;
 CREATE FUNCTION calculaPreco
 	(precoDia DECIMAL (8,2), -- tem de ser o preço em vez do id do carro para ser deterministic
      inicio DATETIME,
@@ -83,26 +84,27 @@ BEGIN
     RETURN precoTotal;
 END $$
 
--- Procedimento para criar um aluguer
-DROP PROCEDURE IF EXISTS novoAluguer;
+DELIMITER ;
 
+-- Função que calcula se um aluguer pode ser criado
 DELIMITER $$
-CREATE PROCEDURE novoAluguer
-	(IN Inicio DATETIME, IN Fim DATETIME, IN ClienteId INT
-    	, IN FuncionarioId INT, IN AutomovelId INT, IN FilOrigem INT, IN FilDestino INT)
+DROP FUNCTION IF EXISTS podeCriarAluguer;
+CREATE FUNCTION podeCriarAluguer
+	(Inicio DATETIME
+    ,Fim DATETIME
+    ,AutomovelId INT
+    ,FuncionarioId INT
+    ,FilOrigem INT)
+    RETURNS BOOLEAN
+    NOT DETERMINISTIC
+	READS SQL DATA
+    SQL SECURITY DEFINER
 BEGIN
 	DECLARE filialFuncionario INT; -- Id da filial de um funcionário
     DECLARE filialAutomovel INT; -- Id da filial de um carro
-    -- Cálculo do preço do aluguer
-    DECLARE precoDia DECIMAL (8,2);
-    DECLARE precoTotal DECIMAL (10,2);
+    DECLARE validade BOOLEAN;
     
-    SELECT A.precoDia INTO precoDia
-		FROM Automovel AS A
-        WHERE  A.Id = AutomovelId;
-	
-    SELECT precoDia, Inicio, Fim;
-    SELECT calculaPreco (precoDia, Inicio, Fim) INTO precoTotal;
+    SET validade = FALSE;
     
     SELECT F.FilialId INTO filialFuncionario
 		FROM Funcionario AS F
@@ -113,34 +115,65 @@ BEGIN
 		WHERE A.Id = AutomovelId
 			AND A.Estado = 'Disponível';
 
-    SELECT filialFuncionario AS 'Filial do Funcionário', filialAutomovel AS 'Filial do Automóvel';
-
     IF filialFuncionario = FilOrigem -- Garante que o funcionario trabalha na filial correta
 		AND filialAutomovel = FilOrigem -- Garante que o automovel está na filial correta e está disponível
+        AND NOT EXISTS( -- Garante que não há Alugueres em conflito com este
+			SELECT 'conflito'
+			FROM Aluguer AS A
+			WHERE A.AutomovelId = AutomovelId
+				AND A.DataInicio <= Fim
+				AND Inicio <= A.DataFim
+		)
+	THEN
+		SET validade = TRUE;
+    END IF;
+    RETURN validade;
+END $$
+
+DELIMITER ;
+
+-- Procedimento para criar um aluguer
+DELIMITER $$
+DROP PROCEDURE IF EXISTS novoAluguer;
+CREATE PROCEDURE novoAluguer
+	(IN Inicio DATETIME, IN Fim DATETIME, IN ClienteId INT
+    	, IN FuncionarioId INT, IN AutomovelId INT, IN FilOrigem INT, IN FilDestino INT)
+BEGIN
+    -- Cálculo do preço do aluguer
+	DECLARE precoDia DECIMAL (8,2);
+    DECLARE precoTotal DECIMAL (10,2);
+	
+    -- SELECT precoDia, Inicio, Fim;
+    
+	SELECT A.precoDia INTO precoDia
+		FROM Automovel AS A
+        WHERE  A.Id = AutomovelId;
+    
+    SELECT calculaPreco (precoDia, Inicio, Fim) INTO precoTotal;
+    
+    IF podeCriarAluguer(Inicio, Fim, AutomovelId, FuncionarioId, FilOrigem)
     THEN 
 		START TRANSACTION;
 		INSERT INTO Aluguer
 		(DataInicio, DataFim, Preco, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
 		VALUES (Inicio, Fim, precoTotal, ClienteId, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
         
-        UPDATE Automovel
-		SET Estado = 'Ocupado', FilialId = FilDestino 
-		WHERE Id = AutomovelId;
-        
         SELECT CONCAT('Aluguer criado com id ', LAST_INSERT_ID()) AS Mensagem;
 		
         COMMIT;
 	ELSE
-		SELECT 'Aluguer não criado' AS Mensagem;
+		SELECT 'Aluguer não criado' AS Mensagem,
+			(SELECT FilialId FROM Funcionario WHERE Id = FuncionarioId) AS 'Filial do Funcionário',
+			(SELECT FilialId FROM Automovel WHERE Id = AutomovelId) AS 'Filial do Automóvel';
 	END IF;
 END $$
+
 DELIMITER ;
 
 
 -- Procedimento para criar um cliente
-DROP PROCEDURE IF EXISTS novoCliente;
-
 DELIMITER $$
+DROP PROCEDURE IF EXISTS novoCliente;
 CREATE PROCEDURE novoCliente
 	(IN Nome VARCHAR(75),
      IN NIF VARCHAR(9),
@@ -175,9 +208,13 @@ BEGIN
 		INSERT INTO Cliente 
 		(Nome, NIF, LocalTrabalho, Rua, Localidade, CodigoPostal)
 		VALUES (Nome, NIF, LocalTrabalho, Rua, Localidade, CodigoPostal);
-		
+        
 		SET id = LAST_INSERT_ID(); -- id do último cliente inserido (por causa do auto_increment)
 		
+		INSERT INTO Cliente_Contacto -- Um cliente tem de ter obrigatóriamente um número de telefone
+			(ClienteId, Telefone)
+            VALUES (id, Telefone); 
+        
 		CALL novoAluguer(Inicio, Fim, id, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
         
         SELECT CONCAT('Cliente criado com id ', id) AS Mensagem;
@@ -190,9 +227,33 @@ BEGIN
 	END IF;
     
 END $$
+
 DELIMITER ;
     
--- Trigger
--- DELIMITER $$
--- CREATE TRIGGER tg
+-- Trigger que garante que após um automóvel ser alugado, passa a estar Ocupado e a pertencer à filial de entrega
+DELIMITER $$
+DROP TRIGGER IF EXISTS tgOcupaAutomovel;
+CREATE TRIGGER tgOcupaAutomovel
+	AFTER INSERT ON Aluguer
+    FOR EACH ROW
+BEGIN
+	UPDATE Automovel AS A
+		SET A.Estado = 'Ocupado'
+        , FilialId = NEW.DevolvidoFilialId
+            WHERE A.Id = NEW.AutomovelId;
+END $$
 
+DELIMITER ;
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteCliente;
+CREATE PROCEDURE deleteCliente;
+	(IN Id INT)
+BEGIN
+	DELETE FROM Cliente_Contacto 
+		WHERE ClienteId = Id;
+	DELETE FROM Aluguer
+		WHERE ClienteId = Id;
+END $$
+
+DELIMITER ;
