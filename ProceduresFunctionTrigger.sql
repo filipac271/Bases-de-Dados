@@ -49,7 +49,6 @@ BEGIN
 	SELECT A.FilialId INTO filialAutomovel
 		FROM Automovel AS A
 		WHERE A.Id = AutomovelId
-			AND A.Estado = 'Disponível';
 
     IF filialFuncionario = FilOrigem -- Garante que o funcionario trabalha na filial correta
 		AND filialAutomovel = FilOrigem -- Garante que o automovel está na filial correta e está disponível
@@ -154,7 +153,8 @@ BEGIN
 	ELSE
 		SELECT 'Aluguer não criado' AS Mensagem,
 			(SELECT FilialId FROM Funcionario WHERE Id = FuncionarioId) AS 'Filial do Funcionário',
-			(SELECT FilialId FROM Automovel WHERE Id = AutomovelId) AS 'Filial do Automóvel';
+			(SELECT FilialId FROM Automovel WHERE Id = AutomovelId) AS 'Filial do Automóvel',
+            FilOrigem AS 'Filial de Origem';
 	END IF;
 END;
 //
@@ -218,13 +218,15 @@ END;
 
 -- Procedure que garante que tudo o que depende de um Cliente também é apagado com ele.
 DROP PROCEDURE IF EXISTS deleteCliente;
-CREATE PROCEDURE deleteCliente;
-	(IN Id INT)
+CREATE PROCEDURE deleteCliente
+	(IN id INT)
 BEGIN
 	DELETE FROM Cliente_Contacto 
-		WHERE ClienteId = Id;
+		WHERE ClienteId = id;
 	DELETE FROM Aluguer
-		WHERE ClienteId = Id;
+		WHERE ClienteId = id;
+	DELETE FROM Cliente
+		WHERE Id = id;
 END;
 //
 
