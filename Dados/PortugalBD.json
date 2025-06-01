@@ -15,23 +15,25 @@
   ],
   "Automovel": [
     { "Marca": "Renault Clio", "Kilometragem": 35000, "Ano": 2019, "Estado": "Disponível", "TipoConsumo": "Gasolina", "PrecoDia": 35.00, "FilialId": 1 },
-    { "Marca": "Peugeot 308", "Kilometragem": 20000, "Ano": 2020, "Estado": "Disponível", "TipoConsumo": "Diesel", "PrecoDia": 40.00, "FilialId": 1 },
+    { "Marca": "Peugeot 308", "Kilometragem": 20000, "Ano": 2020, "Estado": "Disponível", "TipoConsumo": "Gasóleo", "PrecoDia": 40.00, "FilialId": 1 },
     { "Marca": "Fiat 500", "Kilometragem": 15000, "Ano": 2021, "Estado": "Ocupado", "TipoConsumo": "Elétrico", "PrecoDia": 38.00, "FilialId": 1 },
-    { "Marca": "BMW Série 3", "Kilometragem": 45000, "Ano": 2018, "Estado": "Manutenção", "TipoConsumo": "Gasolina", "PrecoDia": 60.00, "FilialId": 1 },
-    { "Marca": "Audi A4", "Kilometragem": 30000, "Ano": 2019, "Estado": "Disponível", "TipoConsumo": "Diesel", "PrecoDia": 55.00, "FilialId": 1 },
+    { "Marca": "BMW Série 3", "Kilometragem": 45000, "Ano": 2018, "Estado": "Disponível", "TipoConsumo": "Gasolina", "PrecoDia": 60.00, "FilialId": 1 },
+    { "Marca": "Audi A4", "Kilometragem": 30000, "Ano": 2019, "Estado": "Disponível", "TipoConsumo": "Gasóleo", "PrecoDia": 55.00, "FilialId": 1 },
     { "Marca": "Toyota Yaris", "Kilometragem": 10000, "Ano": 2022, "Estado": "Disponível", "TipoConsumo": "Híbrido", "PrecoDia": 42.00, "FilialId": 1 }
   ],
   "Funcionario": [
-    { "Nome": "Miguel Costa", "NIF": "111222333", "Salario": 2800.00, "Email": "miguel.costa@belarentacar.pt", "Telefone": "961234567", "FilialId": 1 },
-    { "Nome": "Sofia Martins", "NIF": "222333444", "Salario": 2500.00, "Email": "sofia.martins@belarentacar.pt", "Telefone": "962345678", "FilialId": 1 },
-    { "Nome": "Rui Lopes", "NIF": "333444555", "Salario": 2300.00, "Email": "rui.lopes@belarentacar.pt", "Telefone": "963456789", "FilialId": 1 },
-    { "Nome": "Inês Pereira", "NIF": "444555666", "Salario": 2100.00, "Email": "ines.pereira@belarentacar.pt", "Telefone": "964567890", "FilialId": 1 }
+    {
+      "Nome": "Octavio Faísca", "NIF": "111223333", "Salario": 3000.00,"Email": "octfaisca@belarentacar.com","Telefone": "960123456","FilialId": 1},
+    { "Nome": "Miguel Costa", "NIF": "987283555", "Salario": 2800.00, "Email": "miguel.costa@belarentacar.pt", "Telefone": "961234567", "FilialId": 1 },
+    { "Nome": "Sofia Martins", "NIF": "137495826", "Salario": 2500.00, "Email": "sofia.martins@belarentacar.pt", "Telefone": "962345678", "FilialId": 1 },
+    { "Nome": "Rui Lopes", "NIF": "245918637", "Salario": 2300.00, "Email": "rui.lopes@belarentacar.pt", "Telefone": "963456789", "FilialId": 1 },
+    { "Nome": "Inês Pereira", "NIF": "329847516", "Salario": 2100.00, "Email": "ines.pereira@belarentacar.pt", "Telefone": "964567890", "FilialId": 1 }
   ],
   "Aluguer": [
     { "DataInicio": "2025-05-01 00:00:00", "DataFim": "2025-05-05 00:00:00", "Preco": 140.00, "Multa": 0.00, "FuncionarioId": 1, "ClienteId": 1, "AutomovelId": 1, "RecolhidoFilialId": 1, "DevolvidoFilialId": 1 },
     { "DataInicio": "2025-04-10 00:00:00", "DataFim": "2025-04-12 00:00:00", "Preco": 80.00, "Multa": 0.00, "FuncionarioId": 2, "ClienteId": 2, "AutomovelId": 2, "RecolhidoFilialId": 1, "DevolvidoFilialId": 2 },
     { "DataInicio": "2025-03-20 00:00:00", "DataFim": "2025-03-22 00:00:00", "Preco": 76.00, "Multa": 5.00, "FuncionarioId": 3, "ClienteId": 3, "AutomovelId": 3, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 },
-    { "DataInicio": "2025-05-03 00:00:00", "DataFim": "2025-05-04 00:00:00", "Preco": 60.00, "Multa": 0.00, "FuncionarioId": 4, "ClienteId": 4, "AutomovelId": 6, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 }
+    { "DataInicio": "2025-05-03 00:00:00", "DataFim": "2025-05-04 00:00:00", "Preco": 60.00, "Multa": 0.00, "FuncionarioId": 4, "ClienteId": 4, "AutomovelId": 4, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 }
   ],
   "Funcao": [
     { "Designacao": "Gestor de Filial Portugues", "SalarioBase": 1800 },

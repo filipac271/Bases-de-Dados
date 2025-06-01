@@ -1,93 +1,29 @@
 USE BelaRentaCar;
-DELIMITER $$
 
-DROP PROCEDURE IF EXISTS AddFuncionarioComFuncao;
-CREATE PROCEDURE AddFuncionarioComFuncao(
-    IN pNome VARCHAR(75),
-    IN pNIF VARCHAR(9),
-    IN pSalario DECIMAL(8,2),
-    IN pTelefone VARCHAR(20),
-    IN pEmail VARCHAR(200),
-    IN pFilialId INT,
-    IN pFuncaoId INT
-)
-BEGIN
-    -- Inserir funcionário
-    INSERT INTO Funcionario (Nome, NIF, Salario, Telefone, Email, FilialId)
-    VALUES (pNome, pNIF, pSalario, pTelefone, pEmail, pFilialId);
-    
-    -- Associar a função ao funcionário
-    INSERT INTO Exerce (FuncionarioId, FuncaoId)
-    VALUES (LAST_INSERT_ID(), pFuncaoId);
-END $$
-
-DELIMITER ;
-
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS CriarFilialFuncionarioCarro;
-CREATE PROCEDURE CriarFilialFuncionarioCarro(
-    IN pLocalizacao VARCHAR(75),
-    IN pNomeFuncionario VARCHAR(75),
-    IN pNIFFuncionario VARCHAR(9),
-    IN pSalarioFuncionario DECIMAL(8,2),
-    IN pTelefoneFuncionario VARCHAR(20),
-    IN pEmailFuncionario VARCHAR(200),
-    IN pFuncaoId INT,
-    IN pMarca VARCHAR(75),
-    IN pKilometragem DECIMAL(8,3),
-    IN pAno YEAR,
-    IN pEstado VARCHAR(10),
-    IN pTipoConsumo VARCHAR(10),
-    IN pPrecoDia DECIMAL(8,2)
-)
-BEGIN
-    DECLARE vFilialId INT;
-
-    INSERT INTO Filial (Localizacao) VALUES (pLocalizacao);
-    SET vFilialId = LAST_INSERT_ID();
-
-    CALL AddFuncionarioComFuncao(
-        pNomeFuncionario,
-        pNIFFuncionario,
-        pSalarioFuncionario,
-        pTelefoneFuncionario,
-        pEmailFuncionario,
-        vFilialId,
-        pFuncaoId
-    );
-
-    INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId)
-    VALUES (pMarca, pKilometragem, pAno, pEstado, pTipoConsumo, pPrecoDia, vFilialId);
-
-END $$
-
-DELIMITER ;
+DELIMITER //
 
 -- Função que calcula o custo do aluguer de um automóvel
-DELIMITER $$
 DROP FUNCTION IF EXISTS calculaPreco;
-CREATE FUNCTION calculaPreco
-	(precoDia DECIMAL (8,2), -- tem de ser o preço em vez do id do carro para ser deterministic
-     inicio DATETIME,
-     fim DATETIME)
+CREATE FUNCTION calculaPreco(
+    precoDia DECIMAL(8,2),
+    inicio DATETIME,
+    fim DATETIME
+)
 	RETURNS DECIMAL(10,2)
-    DETERMINISTIC
+	DETERMINISTIC
 BEGIN
-	DECLARE precoTotal DECIMAL(10,2);
+    DECLARE precoTotal DECIMAL(10,2);
     DECLARE nrDias INT;
-        
+
     SET nrDias = DATEDIFF(fim, inicio) + 1;
-    
     SET precoTotal = precoDia * nrDias;
 
     RETURN precoTotal;
-END $$
+END;
+//
 
-DELIMITER ;
 
 -- Função que calcula se um aluguer pode ser criado
-DELIMITER $$
 DROP FUNCTION IF EXISTS podeCriarAluguer;
 CREATE FUNCTION podeCriarAluguer
 	(Inicio DATETIME
@@ -128,12 +64,66 @@ BEGIN
 		SET validade = TRUE;
     END IF;
     RETURN validade;
-END $$
+END;
+//
 
-DELIMITER ;
+DROP PROCEDURE IF EXISTS AddFuncionarioComFuncao;
+CREATE PROCEDURE AddFuncionarioComFuncao(
+    IN pNome VARCHAR(75),
+    IN pNIF VARCHAR(9),
+    IN pSalario DECIMAL(8,2),
+    IN pTelefone VARCHAR(20),
+    IN pEmail VARCHAR(200),
+    IN pFilialId INT,
+    IN pFuncaoId INT
+)
+BEGIN
+    INSERT INTO Funcionario (Nome, NIF, Salario, Telefone, Email, FilialId)
+    VALUES (pNome, pNIF, pSalario, pTelefone, pEmail, pFilialId);
+    
+    INSERT INTO Exerce (FuncionarioId, FuncaoId)
+    VALUES (LAST_INSERT_ID(), pFuncaoId);
+END;
+//
+
+DROP PROCEDURE IF EXISTS CriarFilialFuncionarioCarro;
+CREATE PROCEDURE CriarFilialFuncionarioCarro(
+    IN pLocalizacao VARCHAR(75),
+    IN pNomeFuncionario VARCHAR(75),
+    IN pNIFFuncionario VARCHAR(9),
+    IN pSalarioFuncionario DECIMAL(8,2),
+    IN pTelefoneFuncionario VARCHAR(20),
+    IN pEmailFuncionario VARCHAR(200),
+    IN pFuncaoId INT,
+    IN pMarca VARCHAR(75),
+    IN pKilometragem DECIMAL(8,3),
+    IN pAno YEAR,
+    IN pEstado VARCHAR(10),
+    IN pTipoConsumo VARCHAR(10),
+    IN pPrecoDia DECIMAL(8,2)
+)
+BEGIN
+    DECLARE vFilialId INT;
+
+    INSERT INTO Filial (Localizacao) VALUES (pLocalizacao);
+    SET vFilialId = LAST_INSERT_ID();
+
+    CALL AddFuncionarioComFuncao(
+        pNomeFuncionario,
+        pNIFFuncionario,
+        pSalarioFuncionario,
+        pTelefoneFuncionario,
+        pEmailFuncionario,
+        vFilialId,
+        pFuncaoId
+    );
+
+    INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId)
+    VALUES (pMarca, pKilometragem, pAno, pEstado, pTipoConsumo, pPrecoDia, vFilialId);
+END;
+//
 
 -- Procedimento para criar um aluguer
-DELIMITER $$
 DROP PROCEDURE IF EXISTS novoAluguer;
 CREATE PROCEDURE novoAluguer
 	(IN Inicio DATETIME, IN Fim DATETIME, IN ClienteId INT
@@ -166,13 +156,10 @@ BEGIN
 			(SELECT FilialId FROM Funcionario WHERE Id = FuncionarioId) AS 'Filial do Funcionário',
 			(SELECT FilialId FROM Automovel WHERE Id = AutomovelId) AS 'Filial do Automóvel';
 	END IF;
-END $$
-
-DELIMITER ;
-
+END;
+//
 
 -- Procedimento para criar um cliente
-DELIMITER $$
 DROP PROCEDURE IF EXISTS novoCliente;
 CREATE PROCEDURE novoCliente
 	(IN Nome VARCHAR(75),
@@ -226,12 +213,22 @@ BEGIN
             filialAutomovel AS 'Filial do Automóvel';
 	END IF;
     
-END $$
+END;
+//
 
-DELIMITER ;
-    
+-- Procedure que garante que tudo o que depende de um Cliente também é apagado com ele.
+DROP PROCEDURE IF EXISTS deleteCliente;
+CREATE PROCEDURE deleteCliente;
+	(IN Id INT)
+BEGIN
+	DELETE FROM Cliente_Contacto 
+		WHERE ClienteId = Id;
+	DELETE FROM Aluguer
+		WHERE ClienteId = Id;
+END;
+//
+
 -- Trigger que garante que após um automóvel ser alugado, passa a estar Ocupado e a pertencer à filial de entrega
-DELIMITER $$
 DROP TRIGGER IF EXISTS tgOcupaAutomovel;
 CREATE TRIGGER tgOcupaAutomovel
 	AFTER INSERT ON Aluguer
@@ -241,19 +238,7 @@ BEGIN
 		SET A.Estado = 'Ocupado'
         , FilialId = NEW.DevolvidoFilialId
             WHERE A.Id = NEW.AutomovelId;
-END $$
-
-DELIMITER ;
-
-DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteCliente;
-CREATE PROCEDURE deleteCliente;
-	(IN Id INT)
-BEGIN
-	DELETE FROM Cliente_Contacto 
-		WHERE ClienteId = Id;
-	DELETE FROM Aluguer
-		WHERE ClienteId = Id;
-END $$
+END;
+//
 
 DELIMITER ;

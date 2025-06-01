@@ -19,17 +19,18 @@ Cliente_Contacto;8;089012345;an.vandamme@vandamme.be
 Cliente_Contacto;9;090123456;karel.vermeulen@vermeulen.be
 Cliente_Contacto;10;101234567;liesbeth.hermans@hermans.be
 Automovel;Renault Clio;18000;2022;Disponível;Gasolina;40.00;2
-Automovel;Peugeot 208;22000;2021;Ocupado;Diesel;42.00;2
+Automovel;Peugeot 208;22000;2021;Ocupado;Gasóleo;42.00;2
 Automovel;Volkswagen Golf;25000;2023;Disponível;Gasolina;45.00;2
 Automovel;Audi A3;27000;2020;Disponível;Gasolina;47.00;2
-Automovel;BMW Série 1;30000;2022;Disponível;Diesel;50.00;2
+Automovel;BMW Série 1;30000;2022;Disponível;Gasóleo;50.00;2
 Automovel;Opel Corsa;15000;2021;Ocupado;Elétrico;38.00;2
 Automovel;Ford Fiesta;17000;2023;Disponível;Gasolina;39.00;2
-Automovel;Mercedes A-Class;28000;2020;Disponível;Diesel;55.00;2
+Automovel;Mercedes A-Class;28000;2020;Disponível;Gasóleo;55.00;2
 Automovel;Tesla Model 3;35000;2022;Disponível;Elétrico;60.00;2
 Automovel;Volvo XC40;32000;2021;Ocupado;Gasolina;53.00;2
-Funcionario;Jan Claes;111223333;3200.00;jan.claes@belrentacar.be;0476123456;2
-Funcionario;Sofie Peeters;222334444;2800.00;sofie.peeters@belrentacar.be;0487123456;2
+Funcionario;Leonidas Lindt;222334444;4000.00;lindt@belarentacar.com;961234567;2
+Funcionario;Jan Claes;876436577;3200.00;jan.claes@belrentacar.be;0476123456;2
+Funcionario;Sofie Peeters;222333644;2800.00;sofie.peeters@belrentacar.be;0487123456;2
 Funcionario;Luc Dupont;333445555;2700.00;luc.dupont@belrentacar.be;0498123456;2
 Funcionario;Marie Janssens;444556666;2900.00;marie.janssens@belrentacar.be;0469123456;2
 Funcionario;Pieter Willems;555667777;2600.00;pieter.willems@belrentacar.be;0470123456;2
@@ -47,8 +48,9 @@ Funcao;Gestor de Filial Belga ;2100
 Funcao;Assistente de Atendimento Belga;1150
 Funcao;Técnico de Manutenção Belga;1350
 Funcao;Gestor Comercial Belga;1850
-Exerce;1;2
+Exerce;1;1
 Exerce;2;2
 Exerce;3;3
 Exerce;4;2
 Exerce;5;4
+Exerce;6;4
