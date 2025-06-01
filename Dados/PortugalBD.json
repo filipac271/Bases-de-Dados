@@ -23,13 +23,7 @@
   ],
   "Funcionario": [
     {
-      "Nome": "Octavio Faísca",
-      "NIF": "111223333",
-      "Salario": 3000.00,
-      "Email": "octfaisca@belarentacar.com",
-      "Telefone": "960123456",
-      "FilialId": 1
-    },
+      "Nome": "Octavio Faísca", "NIF": "111223333", "Salario": 3000.00,"Email": "octfaisca@belarentacar.com","Telefone": "960123456","FilialId": 1},
     { "Nome": "Miguel Costa", "NIF": "111222333", "Salario": 2800.00, "Email": "miguel.costa@belarentacar.pt", "Telefone": "961234567", "FilialId": 1 },
     { "Nome": "Sofia Martins", "NIF": "222333444", "Salario": 2500.00, "Email": "sofia.martins@belarentacar.pt", "Telefone": "962345678", "FilialId": 1 },
     { "Nome": "Rui Lopes", "NIF": "333444555", "Salario": 2300.00, "Email": "rui.lopes@belarentacar.pt", "Telefone": "963456789", "FilialId": 1 },
@@ -39,7 +33,7 @@
     { "DataInicio": "2025-05-01 00:00:00", "DataFim": "2025-05-05 00:00:00", "Preco": 140.00, "Multa": 0.00, "FuncionarioId": 1, "ClienteId": 1, "AutomovelId": 1, "RecolhidoFilialId": 1, "DevolvidoFilialId": 1 },
     { "DataInicio": "2025-04-10 00:00:00", "DataFim": "2025-04-12 00:00:00", "Preco": 80.00, "Multa": 0.00, "FuncionarioId": 2, "ClienteId": 2, "AutomovelId": 2, "RecolhidoFilialId": 1, "DevolvidoFilialId": 2 },
     { "DataInicio": "2025-03-20 00:00:00", "DataFim": "2025-03-22 00:00:00", "Preco": 76.00, "Multa": 5.00, "FuncionarioId": 3, "ClienteId": 3, "AutomovelId": 3, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 },
-    { "DataInicio": "2025-05-03 00:00:00", "DataFim": "2025-05-04 00:00:00", "Preco": 60.00, "Multa": 0.00, "FuncionarioId": 4, "ClienteId": 4, "AutomovelId": 6, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 }
+    { "DataInicio": "2025-05-03 00:00:00", "DataFim": "2025-05-04 00:00:00", "Preco": 60.00, "Multa": 0.00, "FuncionarioId": 4, "ClienteId": 4, "AutomovelId": 4, "RecolhidoFilialId": 1, "DevolvidoFilialId": 3 }
   ],
   "Funcao": [
     { "Designacao": "Gestor de Filial Portugues", "SalarioBase": 1800 },

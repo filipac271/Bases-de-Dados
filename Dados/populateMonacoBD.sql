@@ -11,11 +11,11 @@ INSERT INTO Funcao (Designacao, SalarioBase) VALUES
 
 
 INSERT INTO Funcionario (Nome, NIF, Salario, Telefone, Email, FilialId) VALUES
-('Afonso Senna', '333445555', 6000.00, 'senna@belarentacar.com', '962345678', 3),
+('Afonso Senna', '333445555', 6000.00, '+37762345678','senna@belarentacar.com', 3),
 ('Jean Morel', '123456789', 4600.00, '+37761234567', 'jean.m@belarent.mc', 3),
 ('Sophie Laurent', '987654321', 3200.00, '+37769876543', 'sophie.l@belarent.mc', 3),
 ('Antoine Dubois', '192837465', 3000.00, '+37764572839', 'antoine.d@belarent.mc', 3),
-('Isabelle Blanc', '564738291', 2500.00, '+37761234987', 'isabelle.b@belarent.mc', 3);
+('Isabelle Blanc', '564738291', 3500.00, '+37761234987', 'isabelle.b@belarent.mc', 3);
 
 
 
@@ -25,7 +25,7 @@ INSERT INTO Exerce (FuncionarioId, FuncaoId) VALUES
 (3, 5),  
 (1, 1),  
 (5, 6),  
-(4, 8);  
+(4, 7);  
 
 
 
