@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS Funcionario (
     Id INT NOT NULL AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     NIF VARCHAR(9) NOT NULL UNIQUE CHECK (LENGTH(NIF) = 9),
-    Salario DECIMAL(8,2) NOT NULL,
+    Salario DECIMAL(8,2) NOT NULL CHECK (Salario >= 0),
     Telefone VARCHAR(20) NOT NULL,
     Email VARCHAR(200) NULL,
     FilialId INT NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Funcionario (
 CREATE TABLE IF NOT EXISTS Funcao (
     Id INT NOT NULL AUTO_INCREMENT,
     Designacao VARCHAR(75) UNIQUE NOT NULL,
-    SalarioBase DECIMAL(8,2) NOT NULL,
+    SalarioBase DECIMAL(8,2) NOT NULL CHECK (SalarioBase >= 0),
     PRIMARY KEY(Id)
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS Automovel (
     Marca VARCHAR(75) NOT NULL,
     Kilometragem DECIMAL(8,3) NOT NULL,
     Ano YEAR NOT NULL,
-    Estado VARCHAR(10) NOT NULL,
-    TipoConsumo VARCHAR(10) NOT NULL,
+    Estado VARCHAR(10) NOT NULL CHECK ( Estado IN ( "Disponível", "Ocupado")),
+    TipoConsumo VARCHAR(10) NOT NULL CHECK ( TipoConsumo IN ("Gasolina", "Gasóleo", "Elétrico", "Híbrido")),
     PrecoDia DECIMAL(8,2) NOT NULL,
     FilialId INT NOT NULL,
     PRIMARY KEY (Id),
@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS Aluguer (
     Id INT NOT NULL AUTO_INCREMENT,
     DataInicio DATETIME NOT NULL,
     DataFim DATETIME NOT NULL,
+    CHECK (DataInicio < DataFim),
     Preco DECIMAL(10,2) NOT NULL,
     Multa DECIMAL(5,2) NULL,
     ClienteId INT NOT NULL,
