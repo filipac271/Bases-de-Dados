@@ -99,7 +99,9 @@ CREATE TABLE IF NOT EXISTS Aluguer (
     FOREIGN KEY (DevolvidoFilialId) REFERENCES Filial(Id)
 )ENGINE = InnoDB;
 
-
+Source ProceduresFunctionTrigger.sql;
+Source views.sql;
+Source Utilizadores.sql;
 
 -- Inserir Filiais
 INSERT INTO Filial (Localizacao) VALUES
