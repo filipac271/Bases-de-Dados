@@ -69,7 +69,11 @@ CREATE USER 'evarocha'@'localhost' IDENTIFIED BY 'EvaRocha#2025';
 
 
 GRANT SELECT ON BelaRentaCar.* TO 'gestorFilial';
-GRANT SELECT ON BelaRentaCar.Aluguer, BelaRentaCar.Automovel , BelaRentaCar.Cliente , BelaRentaCar.CarrosDisponiveis TO 'Funcionario';
+GRANT SELECT ON BelaRentaCar.Aluguer TO 'Funcionario';
+GRANT SELECT ON BelaRentaCar.Automovel TO 'Funcionario';
+GRANT SELECT ON BelaRentaCar.Cliente TO 'Funcionario';
+GRANT SELECT ON BelaRentaCar.CarrosDisponiveis TO 'Funcionario';
+
 
 
 
