@@ -22,7 +22,9 @@ BEGIN
 END;
 //
 
+DELIMITER ;
 
+DELIMITER //
 -- Função que calcula se um aluguer pode ser criado
 DROP FUNCTION IF EXISTS podeCriarAluguer;
 CREATE FUNCTION podeCriarAluguer
@@ -66,6 +68,9 @@ BEGIN
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS AddFuncionarioComFuncao;
 CREATE PROCEDURE AddFuncionarioComFuncao(
     IN pNome VARCHAR(75),
@@ -85,6 +90,9 @@ BEGIN
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS CriarFilialFuncionarioCarro;
 CREATE PROCEDURE CriarFilialFuncionarioCarro(
     IN pLocalizacao VARCHAR(75),
@@ -122,6 +130,9 @@ BEGIN
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 -- Procedimento para criar um aluguer
 DROP PROCEDURE IF EXISTS novoAluguer;
 CREATE PROCEDURE novoAluguer
@@ -159,6 +170,9 @@ BEGIN
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 -- Procedimento para criar um cliente
 DROP PROCEDURE IF EXISTS novoCliente;
 CREATE PROCEDURE novoCliente
@@ -216,30 +230,39 @@ BEGIN
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 -- Procedure que garante que tudo o que depende de um Cliente também é apagado com ele.
 DROP PROCEDURE IF EXISTS deleteCliente;
 CREATE PROCEDURE deleteCliente
-	(IN id INT)
+	(IN idDado INT)
 BEGIN
 	DELETE FROM Cliente_Contacto 
-		WHERE ClienteId = id;
+		WHERE ClienteId = idDado;
 	DELETE FROM Aluguer
-		WHERE ClienteId = id;
+		WHERE ClienteId = idDado;
 	DELETE FROM Cliente
-		WHERE Id = id;
+		WHERE Id = idDado;
 END;
 //
 
+DELIMITER ;
+
+DELIMITER //
 -- Trigger que garante que após um automóvel ser alugado, passa a estar Ocupado e a pertencer à filial de entrega
 DROP TRIGGER IF EXISTS tgOcupaAutomovel;
 CREATE TRIGGER tgOcupaAutomovel
 	AFTER INSERT ON Aluguer
     FOR EACH ROW
 BEGIN
-	UPDATE Automovel AS A
-		SET A.Estado = 'Ocupado'
-        , FilialId = NEW.DevolvidoFilialId
-            WHERE A.Id = NEW.AutomovelId;
+	IF now() BETWEEN NEW.DataInicio AND NEW.DataFim
+    THEN
+		UPDATE Automovel AS A
+			SET A.Estado = 'Ocupado'
+			, FilialId = NEW.DevolvidoFilialId
+				WHERE A.Id = NEW.AutomovelId;
+	END IF;
 END;
 //
 
