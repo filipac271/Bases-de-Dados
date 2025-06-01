@@ -53,6 +53,7 @@ GRANT 'gestorFilial' TO 'alberto'@'localhost';
 DROP ROLE IF EXISTS 'Funcionario';
 CREATE ROLE 'Funcionario';
 
+
 -- RC4
 GRANT EXECUTE ON PROCEDURE BelaRentaCar.novoAluguer TO 'Funcionario';
 
@@ -68,7 +69,7 @@ CREATE USER 'evarocha'@'localhost' IDENTIFIED BY 'EvaRocha#2025';
 
 
 GRANT SELECT ON BelaRentaCar.* TO 'gestorFilial';
-GRANT SELECT ON BelaRentaCar.* TO 'Funcionario';
+GRANT SELECT ON BelaRentaCar.Aluguer, BelaRentaCar.Automovel , BelaRentaCar.Cliente , BelaRentaCar.CarrosDisponiveis TO 'Funcionario';
 
 
 
