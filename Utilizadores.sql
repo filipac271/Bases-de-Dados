@@ -18,8 +18,9 @@ GRANT EXECUTE ON PROCEDURE BelaRentaCar.AddFuncionarioComFuncao TO 'gestorFilial
 GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Automovel TO 'gestorFilial';
 
 -- RC13 
-GRANT INSERT, DELETE, UPDATE ON BelaRentaCar.Cliente TO 'gestorFilial';
--- criar cliente que recebe as infos do cliente e do aluguer 
+GRANT DELETE, UPDATE ON BelaRentaCar.Cliente TO 'gestorFilial';
+GRANT EXECUTE ON PROCEDURE BelaRentaCar.novoCliente TO 'gestorFilial'; 
+
 
 GRANT INSERT, DELETE ON BelaRentaCar.Cliente_Contacto TO 'gestorFilial';
 
@@ -53,8 +54,7 @@ DROP ROLE IF EXISTS 'Funcionario';
 CREATE ROLE 'Funcionario';
 
 -- RC4
-GRANT INSERT ON BelaRentaCar.Aluguer TO 'Funcionario';
--- Procedure de criar aluguer que confirma a disponibilidade 
+GRANT EXECUTE ON PROCEDURE BelaRentaCar.novoAluguer TO 'Funcionario';
 
 -- RC5 
 GRANT UPDATE (Multa) ON BelaRentaCar.Aluguer TO 'Funcionario';
