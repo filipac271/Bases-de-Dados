@@ -62,17 +62,48 @@ END $$
 
 DELIMITER ;
 
+-- Função que calcula o custo do aluguer de um automóvel
+DROP FUNCTION IF EXISTS calculaPreco
+
+DELIMITER $$
+CREATE FUNCTION calculaPreco
+	(precoDia DECIMAL (8,2), -- tem de ser o preço em vez do id do carro para ser deterministic
+     inicio DATETIME,
+     fim DATETIME)
+	RETURNS DECIMAL(10,2)
+    DETERMINISTIC
+BEGIN
+	DECLARE precoTotal DECIMAL(10,2);
+    DECLARE nrDias INT;
+        
+    SET nrDias = DATEDIFF(fim, inicio) + 1;
+    
+    SET precoTotal = precoDia * nrDias;
+
+    RETURN precoTotal;
+END $$
+
 -- Procedimento para criar um aluguer
 DROP PROCEDURE IF EXISTS novoAluguer;
 
 DELIMITER $$
 CREATE PROCEDURE novoAluguer
-	(IN Inicio DATETIME, IN Fim DATETIME, IN Preco INT, IN Multa INT, IN ClienteId INT
+	(IN Inicio DATETIME, IN Fim DATETIME, IN ClienteId INT
     	, IN FuncionarioId INT, IN AutomovelId INT, IN FilOrigem INT, IN FilDestino INT)
 BEGIN
 	DECLARE filialFuncionario INT; -- Id da filial de um funcionário
     DECLARE filialAutomovel INT; -- Id da filial de um carro
+    -- Cálculo do preço do aluguer
+    DECLARE precoDia DECIMAL (8,2);
+    DECLARE precoTotal DECIMAL (10,2);
+    
+    SELECT A.precoDia INTO precoDia
+		FROM Automovel AS A
+        WHERE  A.Id = AutomovelId;
 	
+    SELECT precoDia, Inicio, Fim;
+    SELECT calculaPreco (precoDia, Inicio, Fim) INTO precoTotal;
+    
     SELECT F.FilialId INTO filialFuncionario
 		FROM Funcionario AS F
 		WHERE F.Id = FuncionarioId;
@@ -89,14 +120,14 @@ BEGIN
     THEN 
 		START TRANSACTION;
 		INSERT INTO Aluguer
-		(DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
-		VALUES (Inicio, Fim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
+		(DataInicio, DataFim, Preco, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
+		VALUES (Inicio, Fim, precoTotal, ClienteId, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
         
         UPDATE Automovel
 		SET Estado = 'Ocupado', FilialId = FilDestino 
 		WHERE Id = AutomovelId;
         
-        SELECT CONCAT('Alguer criado com id ', LAST_INSERT_ID()) AS Mensagem;
+        SELECT CONCAT('Aluguer criado com id ', LAST_INSERT_ID()) AS Mensagem;
 		
         COMMIT;
 	ELSE
@@ -118,8 +149,8 @@ CREATE PROCEDURE novoCliente
      IN Localidade VARCHAR(75),
      IN CodigoPostal VARCHAR(10),
      IN Telefone VARCHAR(20),
-     IN Inicio DATETIME, IN Fim DATETIME, IN Preco INT, IN Multa INT,
-	 IN FuncionarioId INT, IN AutomovelId INT, IN FilOrigem INT, IN FilDestino INT)
+     IN Inicio DATETIME, IN Fim DATETIME, IN FuncionarioId INT,
+     IN AutomovelId INT, IN FilOrigem INT, IN FilDestino INT)
 BEGIN
 	DECLARE id INT;
     DECLARE nrAlugueres INT;
@@ -147,8 +178,8 @@ BEGIN
 		
 		SET id = LAST_INSERT_ID(); -- id do último cliente inserido (por causa do auto_increment)
 		
-		CALL novoAluguer(Inicio, Fim, Preco, Multa, id, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
-		
+		CALL novoAluguer(Inicio, Fim, id, FuncionarioId, AutomovelId, FilOrigem, FilDestino);
+        
         SELECT CONCAT('Cliente criado com id ', id) AS Mensagem;
         
         COMMIT;
@@ -161,3 +192,7 @@ BEGIN
 END $$
 DELIMITER ;
     
+-- Trigger
+-- DELIMITER $$
+-- CREATE TRIGGER tg
+
