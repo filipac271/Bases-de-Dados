@@ -1,0 +1,2 @@
+mysqldump: [Warning] Using a password on the command line interface can be insecure.
+Backup feito com sucesso: /home/diogo/Desktop/BD/Bases-de-Dasos/backups/backup_BelaRentaCar_20250601.sql

@@ -93,7 +93,6 @@ def insereFuncionario(cursor, funcionarios):
 
 def insereAluguer(cursor, alugueres,offsetCliente,offsetAutomovel,offsetFuncionario):
     for aluguer in alugueres:
-        print(aluguer['ClienteId'] + offsetCliente)
         try:
             cursor.execute("""
                 INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, FuncionarioId, ClienteId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId)
@@ -363,7 +362,6 @@ def migraPostgres(pgCursor, mysqlCursor):
         row = list(row)
         row[4] += offset_cliente
         row[5] += offset_funcionario
-
         row[6] += offset_automovel
         safe_insert(insert_aluguer, row)
 
@@ -409,6 +407,7 @@ def main():
 
     for row in resultados:
         print(row)
+
 
 
     cursor.close()
