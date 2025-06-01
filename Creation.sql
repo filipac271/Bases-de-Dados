@@ -101,4 +101,13 @@ CREATE TABLE IF NOT EXISTS Aluguer (
 
 
 
+-- Inserir Filiais
+INSERT INTO Filial (Localizacao) VALUES
+('Portugal'),
+('Bélgica'),
+('Mónaco');
+
+
+
+
 
