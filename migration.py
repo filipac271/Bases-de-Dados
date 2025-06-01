@@ -189,7 +189,6 @@ def migraCsv(cursor):
 
                 if tipo == 'Cliente':
                         nome, rua, localidade, codigoPostal, nif, localTrabalho = linha[1:]
-                        print(codigoPostal)
                         cursor.execute(
                             "INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VALUES (%s, %s, %s, %s, %s, %s);",
                             (nome, rua, localidade, codigoPostal, nif, localTrabalho)
