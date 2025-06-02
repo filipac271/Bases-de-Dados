@@ -181,8 +181,13 @@ def migraJson(cursor):
 def migraCsv(cursor):
     with open('Dados/BelgaBD.csv', newline='', encoding='utf-8') as ficheiro:
         leitor = csv.reader(ficheiro, delimiter=';')  
+        offset_funcao = get_offset("Funcao",cursor)
+        offset_funcionario = get_offset("Funcionario",cursor)
+        offset_cliente = get_offset("Cliente",cursor)
+        offset_automovel = get_offset("Automovel",cursor)
         for linha in leitor:
             print(linha)
+            print(offset_funcao,offset_cliente,offset_funcionario,offset_automovel)
             try:
                 tipo = linha[0]
 
@@ -200,7 +205,7 @@ def migraCsv(cursor):
                         email = linha[3] if linha[3] else None
                         cursor.execute(
                             "INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email) VALUES (%s, %s, %s);",
-                            (clienteId, telefone, email)
+                            (clienteId + offset_cliente, telefone, email)
                         )
 
                 elif tipo == 'Automovel':
@@ -243,7 +248,7 @@ def migraCsv(cursor):
                         devolvidoFilialId = int(linha[9])
                         cursor.execute(
                             "INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);",
-                            (dataInicio, dataFim, preco, multa, clienteId, funcionarioId, automovelId, recolhidoFilialId, devolvidoFilialId)
+                            (dataInicio, dataFim, preco, multa, clienteId + offset_cliente, funcionarioId + offset_funcionario, automovelId + offset_automovel, recolhidoFilialId, devolvidoFilialId)
                         )
 
                 elif tipo == 'Funcao':
@@ -261,7 +266,7 @@ def migraCsv(cursor):
                         funcaoId = int(linha[2])
                         cursor.execute(
                             "INSERT INTO Exerce (FuncionarioId, FuncaoId) VALUES (%s, %s);",
-                            (funcionarioId, funcaoId)
+                            (funcionarioId + offset_funcionario, funcaoId + offset_funcao)
                         )
             except IntegrityError as e:
                 # Erro de entrada duplicada (código 1062 no MySQL)
