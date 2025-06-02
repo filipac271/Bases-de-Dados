@@ -51,6 +51,7 @@ BEGIN
 	SELECT A.FilialId INTO filialAutomovel
 		FROM Automovel AS A
 		WHERE A.Id = AutomovelId;
+			AND A.Estado = 'Disponível'; 
 
     IF filialFuncionario = FilOrigem -- Garante que o funcionario trabalha na filial correta
 		AND filialAutomovel = FilOrigem -- Garante que o automovel está na filial correta e está disponível

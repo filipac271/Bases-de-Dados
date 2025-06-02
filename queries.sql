@@ -97,3 +97,5 @@ BEGIN
 		FROM Aluguer AS AL
 		WHERE AL.ClienteId = IdCliente;
 END $$
+
+DELIMITER ;
