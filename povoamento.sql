@@ -5,6 +5,11 @@ INSERT INTO Filial (Localizacao) VALUES
 ('Bélgica'),
 ('Mónaco');
 
+SET @ultimoFuncionarioId = (SELECT COALESCE(MAX(Id), 0) FROM Funcionario);
+SET @ultimoClienteId = (SELECT COALESCE(MAX(Id), 0) FROM Cliente);
+SET @ultimoAutomovelId = (SELECT COALESCE(MAX(Id), 0) FROM Automovel);
+SET @ultimoFuncaoId = (SELECT COALESCE(MAX(Id), 0) FROM Funcao);
+
 
 INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VALUES
 ('Akio Toyoda', 'Rua Toyoda', 'Japao', '1234-234', 111111111, 'Toyota Group'),
@@ -20,16 +25,16 @@ INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VA
 
 
 INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email) VALUES
-(1, '910234567', 'akio.toyoda@toyota.jp'),
-(2, '920345678', 'oliver.blume@vwgroup.de'),
-(3, '930456789', 'carlos.tavares@stellantis.com'),
-(4, '940567890', 'jim.farley@ford.com'),
-(5, '950678901', 'luca.demeo@renault.it'),
-(6, '960789012', 'toshihiro.mibe@honda.jp'),
-(7, '970890123', 'makoto.uchida@nissan.jp'),
-(8, '980901234', 'mary.barra@gm.com'),
-(9, '990012345', 'harald.kruger@bmw.de'),
-(10, '900123456', 'zhou.xiaoqing@geely.cn');
+(1 + @ultimoClienteId, '910234567', 'akio.toyoda@toyota.jp'),
+(2 + @ultimoClienteId, '920345678', 'oliver.blume@vwgroup.de'),
+(3 + @ultimoClienteId, '930456789', 'carlos.tavares@stellantis.com'),
+(4 + @ultimoClienteId, '940567890', 'jim.farley@ford.com'),
+(5 + @ultimoClienteId, '950678901', 'luca.demeo@renault.it'),
+(6 + @ultimoClienteId, '960789012', 'toshihiro.mibe@honda.jp'),
+(7 + @ultimoClienteId, '970890123', 'makoto.uchida@nissan.jp'),
+(8 + @ultimoClienteId, '980901234', 'mary.barra@gm.com'),
+(9 + @ultimoClienteId, '990012345', 'harald.kruger@bmw.de'),
+(1 + @ultimoClienteId, '900123456', 'zhou.xiaoqing@geely.cn');
 
 
 
@@ -55,16 +60,16 @@ INSERT INTO Funcionario (Nome, NIF,Salario, Email, Telefone, FilialId) VALUES
 
 
 INSERT INTO Aluguer (DataInicio, DataFim, Preco, Multa, ClienteId, FuncionarioId, AutomovelId, RecolhidoFilialId, DevolvidoFilialId) VALUES
-('2025-04-01 00:00:00', '2025-04-05 00:00:00', 180.00, 0.00, 1, 2, 1, 1, 1),
-('2025-03-15 00:00:00', '2025-03-17 00:00:00', 100.00, 10.00, 2, 1, 2, 2, 2),
-('2025-04-10 00:00:00', '2025-04-13 00:00:00', 120.00, 0.00, 3, 3, 3, 3, 3),
-('2025-02-05 00:00:00', '2025-02-07 00:00:00', 76.00, 5.00, 4, 5, 4, 1, 2),
-('2025-01-20 00:00:00', '2025-01-24 00:00:00', 168.00, 0.00, 5, 4, 5, 2, 2),
-('2025-03-01 00:00:00', '2025-03-04 00:00:00', 195.00, 15.00, 1, 2, 6, 3, 3),
-('2025-04-05 00:00:00', '2025-04-07 00:00:00', 105.00, 0.00, 2, 1, 7, 1, 1),
-('2025-03-22 00:00:00', '2025-03-26 00:00:00', 240.00, 0.00, 3, 5, 8, 2, 1),
-('2025-02-18 00:00:00', '2025-02-22 00:00:00', 280.00, 20.00, 4, 3, 9, 3, 3),
-('2025-04-01 00:00:00', '2025-04-03 00:00:00', 110.00, 0.00, 5, 4, 10, 1, 1);
+('2025-04-01 00:00:00', '2025-04-05 00:00:00', 180.00, 0.00, 1 + @ultimoClienteId, 2 + @ultimoFuncionarioId, 1 + @ultimoAutomovelId, 1, 1),
+('2025-03-15 00:00:00', '2025-03-17 00:00:00', 100.00, 10.00, 2 + @ultimoClienteId, 1 + @ultimoFuncionarioId, 2 + @ultimoAutomovelId, 2, 2),
+('2025-04-10 00:00:00', '2025-04-13 00:00:00', 120.00, 0.00, 3 + @ultimoClienteId, 3 + @ultimoFuncionarioId, 3 + @ultimoAutomovelId, 3, 3),
+('2025-02-05 00:00:00', '2025-02-07 00:00:00', 76.00, 5.00, 4 + @ultimoClienteId, 5 + @ultimoFuncionarioId, 4 + @ultimoAutomovelId, 1, 2),
+('2025-01-20 00:00:00', '2025-01-24 00:00:00', 168.00, 0.00, 5 + @ultimoClienteId, 4 + @ultimoFuncionarioId, 5 + @ultimoAutomovelId, 2, 2),
+('2025-03-01 00:00:00', '2025-03-04 00:00:00', 195.00, 15.00, 1 + @ultimoClienteId, 2 + @ultimoFuncionarioId, 6 + @ultimoAutomovelId, 3, 3),
+('2025-04-05 00:00:00', '2025-04-07 00:00:00', 105.00, 0.00, 2 + @ultimoClienteId, 1 + @ultimoFuncionarioId, 7 + @ultimoAutomovelId, 1, 1),
+('2025-03-22 00:00:00', '2025-03-26 00:00:00', 240.00, 0.00, 3 + @ultimoClienteId, 5 + @ultimoFuncionarioId, 8 + @ultimoAutomovelId, 2, 1),
+('2025-02-18 00:00:00', '2025-02-22 00:00:00', 280.00, 20.00, 4 + @ultimoClienteId, 3 + @ultimoFuncionarioId, 9 + @ultimoAutomovelId, 3, 3),
+('2025-04-01 00:00:00', '2025-04-03 00:00:00', 110.00, 0.00, 5 + @ultimoClienteId, 4 + @ultimoFuncionarioId, 1 + @ultimoAutomovelId, 1, 1);
 
 
 
@@ -76,10 +81,11 @@ INSERT INTO Funcao (Designacao, SalarioBase) VALUES
 ('Operador de Reservas', 1200),
 ('Gestor Comercial', 1800);
 
--- Inserir associação Funcionario-Funcao (Exerce)
+-- Inserir associação Funcionario-Funcao (Exerce) com offset dinâmico
 INSERT INTO Exerce (FuncionarioId, FuncaoId) VALUES
-(1, 1),
-(2, 1),
-(3, 1),
-(4, 2),
-(5, 5);
+(@ultimoFuncionarioId + 1, @ultimoFuncaoId + 2),
+(@ultimoFuncionarioId + 2, @ultimoFuncaoId + 2),
+(@ultimoFuncionarioId + 3, @ultimoFuncaoId + 4),
+(@ultimoFuncionarioId + 4, @ultimoFuncaoId + 1),
+(@ultimoFuncionarioId + 5, @ultimoFuncaoId + 5);
+
