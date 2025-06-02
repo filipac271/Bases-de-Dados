@@ -82,17 +82,30 @@ CREATE PROCEDURE AddFuncionarioComFuncao(
     IN pFuncaoId INT
 )
 BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SELECT 'Erro no AddFuncionarioComFuncao' AS Mensagem;
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
     INSERT INTO Funcionario (Nome, NIF, Salario, Telefone, Email, FilialId)
     VALUES (pNome, pNIF, pSalario, pTelefone, pEmail, pFilialId);
-    
+
     INSERT INTO Exerce (FuncionarioId, FuncaoId)
     VALUES (LAST_INSERT_ID(), pFuncaoId);
+
+    COMMIT;
+    SELECT 'Sucesso na criação de Funcionário com Função' AS Mensagem;
+
 END;
 //
-
 DELIMITER ;
 
+
 DELIMITER //
+
 DROP PROCEDURE IF EXISTS CriarFilialFuncionarioCarro;
 CREATE PROCEDURE CriarFilialFuncionarioCarro(
     IN pLocalizacao VARCHAR(75),
@@ -112,6 +125,14 @@ CREATE PROCEDURE CriarFilialFuncionarioCarro(
 BEGIN
     DECLARE vFilialId INT;
 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        SELECT 'Erro no CriarFilialFuncionarioCarro' AS Mensagem;
+        ROLLBACK;
+    END;
+
+    START TRANSACTION;
+
     INSERT INTO Filial (Localizacao) VALUES (pLocalizacao);
     SET vFilialId = LAST_INSERT_ID();
 
@@ -127,10 +148,17 @@ BEGIN
 
     INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, TipoConsumo, PrecoDia, FilialId)
     VALUES (pMarca, pKilometragem, pAno, pEstado, pTipoConsumo, pPrecoDia, vFilialId);
+
+    
+    COMMIT;
+    SELECT 'Sucesso na criação de uma Filial com Funcionário e Carro' AS Mensagem;
+
+
 END;
 //
-
 DELIMITER ;
+
+
 
 DELIMITER //
 -- Procedimento para criar um aluguer
