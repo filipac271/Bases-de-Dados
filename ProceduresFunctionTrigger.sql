@@ -267,3 +267,21 @@ END;
 //
 
 DELIMITER ;
+
+DELIMITER //
+-- Evento que atualiza o estado dos automóveis
+DROP EVENT IF EXISTS atualizaEstadoDiario;
+CREATE EVENT atualizaEstadoDiario
+	ON SCHEDULE EVERY 1 DAY
+		STARTS CURRENT_DATE + INTERVAL 23 HOUR -- Alterável se quiserem
+DO
+	UPDATE Automovel AS AU
+		INNER JOIN Aluguer AS AL
+			ON AU.Id = AL.AutomovelId
+		SET AU.Estado = 'Disponível'
+        WHERE CURDATE() = DATE(AL.DataFim);
+//
+
+DELIMITER ;
+        
+	
