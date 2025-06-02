@@ -1,3 +1,5 @@
+DROP DATABASE belarentacarmonaco;
+
 CREATE DATABASE BelaRentaCarMonaco;
 
 \c belarentacarmonaco;

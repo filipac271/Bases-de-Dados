@@ -16,7 +16,7 @@ INSERT INTO Cliente (Nome, Rua, Localidade, CodigoPostal, NIF, LocalTrabalho) VA
 ('Makoto Uchida', 'Rua Yokohama', 'Japao', '1267-890', 777777777, 'Nissan Motor Co.'),
 ('Mary Barra', 'Detroit Ave', 'Estados Unidos', '4822-300', 888888888, 'General Motors'),
 ('Harald Krüger', 'München Straße', 'Alemanha', '8033-500', 999999999, 'BMW Group'),
-('Zhou Xiaoqing', 'Rua Geely', 'China', '1000-888', 101010101, 'Geely Holding Group');
+('Zhou Xiaoqing', 'Rua Geely', 'China', '1000-888', 101440101, 'Geely Holding Group');
 
 
 INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email) VALUES
@@ -35,21 +35,21 @@ INSERT INTO Cliente_Contacto (ClienteId, Telefone, Email) VALUES
 
 INSERT INTO Automovel (Marca, Kilometragem, Ano, Estado, PrecoDia, TipoConsumo, FilialId) VALUES
 ('Toyota Corolla', 45000, 2020, 'Disponível', 45.00, 'Gasolina', 1),
-('Volkswagen Golf', 30000, 2021, 'Ocupado', 50.00, 'Diesel', 2),
+('Volkswagen Golf', 30000, 2021, 'Ocupado', 50.00, 'Gasóleo', 2),
 ('Peugeot 208', 15000, 2022, 'Disponível', 40.00, 'Gasolina', 3),
 ('Renault Clio', 60000, 2019, 'Disponível', 38.00, 'Gasolina', 1),
-('Ford Focus', 50000, 2020, 'Disponível', 42.00, 'Diesel', 2),
+('Ford Focus', 50000, 2020, 'Disponível', 42.00, 'Gasóleo', 2),
 ('BMW Série 1', 25000, 2021, 'Ocupado', 65.00, 'Gasolina', 3),
 ('Fiat 500', 12000, 2023, 'Disponível', 35.00, 'Elétrico', 1),
-('Audi A3', 40000, 2020, 'Disponível', 60.00, 'Diesel', 2),
+('Audi A3', 40000, 2020, 'Disponível', 60.00, 'Gasóleo', 2),
 ('Mercedes A-Class', 28000, 2022, 'Disponível', 70.00, 'Gasolina', 3),
 ('Nissan Leaf', 18000, 2021, 'Ocupado', 55.00, 'Elétrico', 1);
 
 -- Inserir Funcionários
 INSERT INTO Funcionario (Nome, NIF,Salario, Email, Telefone, FilialId) VALUES
-('Octavio Faísca', '111223333',3000.00, 'octfaisca@belarentacar.com', '960123456', 1),
-('Leonidas Lindt', '222334444',2000.00, 'lindt@belarentacar.com', '961234567', 2),
-('Afonso Senna', '333445555',2000.00, 'senna@belarentacar.com', '962345678', 3),
+('Cláudia Neves', '874512369', 3100.00, 'claudia.neves@belarentacar.com', '963112233', 1),
+('Rui Martins', '951753456', 2750.00, 'rui.martins@belarentacar.com', '964223344', 2),
+('Joana Ferreira', '782364159', 2900.00, 'joana.ferreira@belarentacar.com', '965334455', 3),
 ('José Martins', '444556666',2000.00, 'jose.martins@belarentacar.com', '963456789', 1),
 ('Eva Rocha', '555667777',2000.00, 'eva.rocha@belarentacar.com', '964567890', 2);
 
