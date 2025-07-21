@@ -76,3 +76,11 @@ Sistema completo de base de dados para uma empresa de Rent-a-Car, desenvolvido p
   - `Dados/PortugalBD.json`
 
 > ⚠️ **Nota:** A migração não é genérica — foi desenhada especificamente para os dados presentes na pasta `Dados/`.
+
+
+## ✍️ Group Members
+
+* Diogo José Ribeiro e Ribeiro - A106906 - DIOGO4810
+* Carolina Silva Martins - A107285 - Carolllina
+* Filipa Cangueiro Gonçalves - A107329 - filipac271
+* Lucas Robertson - A - lucasxdsy 
